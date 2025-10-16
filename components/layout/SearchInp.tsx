@@ -6,7 +6,7 @@ export default function SearchInp({ open, setOpen }) {
       {open ? (
         <div
           className="flex items-center h-10 gap-2 border 
-          bg-gray-400 rounded-md px-2 py-1 text-white"
+           rounded-md px-2 py-1 bg-purple-300"
         >
           <Search className="text-gray-500" />
           <input

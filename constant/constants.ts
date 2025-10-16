@@ -2,22 +2,21 @@ export const navLinks = [
   {
     title: "home",
     id: "home",
-    router: "/"
+    router: "/",
   },
   {
     title: "shop",
     id: "shop",
-    router: "/products"
+    router: "/products",
   },
   {
     title: "contact",
     id: "contact",
-    router: "/"
+    router: "/",
   },
   {
     title: "about",
     id: "about",
-    router: "/"
-  }
-
+    router: "/",
+  },
 ];

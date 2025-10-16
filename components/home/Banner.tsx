@@ -1,7 +1,27 @@
-export default function Banner(){
-  return(
-    <header>
-      Hello from Banner
-    </header>
-  )
+import { Button } from "@/components/ui/button";
+
+export default function Banner() {
+  return (
+    <section className="overflow-hidden bg-[url(https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?q=80&w=2670&auto=format&fit=crop)] bg-cover bg-top bg-no-repeat my-12 w-[90%] mx-auto rounded-lg">
+      <div className="bg-black/50 p-8 md:p-12 lg:px-16 lg:py-24">
+        <div className="ltr:sm:text-left rtl:sm:text-right">
+          <h2 className="text-2xl font-bold text-white sm:text-3xl md:text-5xl">
+            Latest Shirts
+          </h2>
+
+          <p className="hidden max-w-lg text-white/90 md:mt-6 md:block md:text-lg md:leading-relaxed">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore
+            officia corporis quasi doloribus iure architecto
+            beatae excepturi dolores.
+          </p>
+
+          <div className="mt-4 sm:mt-8">
+            <Button className="bg-violet-800 hover:bg-violet-700 transition duration-200">
+              Get Yours Today
+            </Button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 }

@@ -4,22 +4,30 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@/components/ui/carousel";
 import CardSlide from "./CardSlide";
 
 export default function Hero() {
   return (
     <Carousel className="w-[80%] mx-auto mt-8">
-      <CarouselContent className="">
-        <CarouselItem className="h-[380px] ">
-          <CardSlide />
+      <CarouselContent>
+        <CarouselItem className="h-[400px] ">
+          <CardSlide
+            discount="25% discount for sale"
+            title="Experience Pure Sound - Your Perfect Headphones Awaits!"
+            buttonTitle="shop now"
+            src="/assets/category1.png"
+          />
+        </CarouselItem>
+        <CarouselItem className="h-[400px] ">
+          <CardSlide
+            discount="26% discount for sale"
+            title="Experience Pure Sound - Your Perfect Headphones Awaits!"
+            buttonTitle="shop now"
+            src="/assets/category2.png"
+          />
         </CarouselItem>
       </CarouselContent>
-
-      <CarouselPrevious className="left-2" />
-      <CarouselNext className="right-2" />
     </Carousel>
   );
 }

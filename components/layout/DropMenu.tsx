@@ -25,7 +25,8 @@ export default function DropMenu() {
           <CircleUserRound /> Account
         </span>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56" align="center">
+      
+      <DropdownMenuContent className="w-56 bg-purple-200 pt-6 border border-violet-300" align="center">
         <DropdownMenuLabel>manage Account</DropdownMenuLabel>
         <DropdownMenuGroup>
           <Link href="/profile">
@@ -56,8 +57,8 @@ export default function DropMenu() {
             <Headset />
           </DropdownMenuShortcut>
         </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem className="bg-red-800 text-white">
+        <DropdownMenuSeparator  />
+        <DropdownMenuItem className="bg-red-400">
           Log out
           <DropdownMenuShortcut>
             <LogOut />
