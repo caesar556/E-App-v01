@@ -12,10 +12,10 @@ export default function PopupCart() {
     <Popover>
       <PopoverTrigger>
         <span>
-          <ShoppingCart />
+          <ShoppingCart size={21} />
         </span>
       </PopoverTrigger>
-      <PopoverContent align="start"  className="bg-purple-300 w-fit mt-8 mr-32">
+      <PopoverContent align="start"  className="bg-black/70 w-fit mt-8 mr-32">
         <Cart />
       </PopoverContent>
     </Popover>

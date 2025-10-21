@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function Cart() {
   return (
     <div
-      className="relative w-screen max-w-sm  bg-purple-200 p-6 rounded-lg"
+      className="relative w-screen max-w-sm  text-white bg-black/70 p-6 rounded-lg"
       role="dialog"
       aria-modal="true"
     >
@@ -42,7 +42,7 @@ export default function Cart() {
       <div className="mt-6 space-y-3 text-center flex flex-col">
         <Link
           href="/cart"
-          className="block rounded-sm border border-gray-600 px-4 py-2 text-sm text-gray-700 hover:ring-1 hover:ring-gray-400"
+          className="block rounded-sm border border-gray-500 px-4 py-2 text-sm text-gray-700 hover:ring-1 hover:ring-gray-400"
         >
           View my cart (2)
         </Link>

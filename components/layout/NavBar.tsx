@@ -1,58 +1,77 @@
 "use client";
+
 import Link from "next/link";
-import { navLinks } from "../../constant/constants";
-import { BellRing } from "lucide-react";
-import SearchInp from "./SearchInp";
 import { useState } from "react";
+import { BellRing, Menu, X } from "lucide-react";
+
+import { navLinks } from "../../constant/constants";
+import SearchInp from "./SearchInp";
 import DropMenu from "./DropMenu";
-import MobileNav from "./MobileNav";
 import PopupCart from "./PopupCart";
 
 export default function NavBar() {
-  const [open, setOpen] = useState<boolean>(false);
+  const [open, setOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
     <header
-      className="h-20 px-4 md:px-8 lg:px-16 xl:px-28 2xl:px-56
-      flex justify-between items-center bg-purple-400 fixed top-0 z-[999] w-full"
+      className="fixed top-0 z-[999] w-full h-20 
+      flex items-center justify-between 
+      bg-black/70 text-white 
+      px-4 md:px-8 lg:px-16 xl:px-28 2xl:px-56
+      border-b border-gray-800/40 backdrop-blur-sm"
     >
-      <h3 className="text-[30px] font-bold tracking-wide">
-        <span className="text-violet-700">E</span>-App
-      </h3>
+      <Link href="/" className="text-[32px] font-bold tracking-wide">
+        <span className="text-violet-500">E</span>-App
+      </Link>
 
-      <nav>
-        {!open && (
-          <ul
-            className={`hidden sm:flex gap-6 text-[16px] font-medium capitalize `}
+      <nav className={`${open ? "hidden" : "hidden md:flex"}  gap-6 text-[16px] font-medium capitalize`}>
+        {navLinks.map((link) => (
+          <Link
+            key={link.id}
+            href={link.router}
+            className="hover:text-violet-500 transition-colors duration-200"
           >
-            {navLinks.map((link) => (
-              <li key={link.id}>
-                <Link href={link.router}>{link.title}</Link>
-              </li>
-            ))}
-          </ul>
-        )}
+            {link.title}
+          </Link>
+        ))}
       </nav>
-      <div className="hidden sm:flex gap-5 items-center text-[16px] text-center">
+
+      <div className="hidden md:flex items-center gap-5 text-[16px]">
         <SearchInp open={open} setOpen={setOpen} />
-        <div>
-          <PopupCart />
-        </div>
-        <span className="relative py-2">
-          <p
-            className="bg-red-700 px-1 text-[12px] text-white 
-            rounded-full absolute top-0 right-0"
+        <PopupCart />
+        <button
+          type="button"
+          className="relative p-2 hover:text-violet-500 transition"
+          aria-label="Notifications"
+        >
+          <span
+            className="absolute top-0 right-0 bg-red-700 text-[12px] 
+            text-white px-1 rounded-full translate-x-1 -translate-y-1"
           >
             4
-          </p>
-          <BellRing />
-        </span>
-        <div>
-          <DropMenu />
+          </span>
+          <BellRing size={21} />
+        </button>
+        <DropMenu />
+      </div>
+
+      <button
+        type="button"
+        className="md:hidden p-2 text-white hover:text-violet-500 transition"
+        onClick={() => setMenuOpen(!menuOpen)}
+        aria-label="Toggle Menu"
+      >
+        {menuOpen ? <X size={26} /> : <Menu size={26} />}
+      </button>
+
+      {menuOpen && (
+        <div
+          className="border-2 border-red-700"
+        >
+          hello world
         </div>
-      </div>
-      <div className="hidden">
-        <MobileNav />
-      </div>
+      )}
     </header>
   );
 }

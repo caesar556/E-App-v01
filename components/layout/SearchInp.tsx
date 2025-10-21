@@ -6,7 +6,7 @@ export default function SearchInp({ open, setOpen }) {
       {open ? (
         <div
           className="flex items-center h-10 gap-2 border 
-           rounded-md px-2 py-1 bg-purple-300"
+           rounded-md px-2 py-1 bg-white/10 "
         >
           <Search className="text-gray-500" />
           <input
@@ -21,7 +21,7 @@ export default function SearchInp({ open, setOpen }) {
         </div>
       ) : (
         <button onClick={() => setOpen(true)}>
-          <Search />
+          <Search size={21} />
         </button>
       )}
     </div>

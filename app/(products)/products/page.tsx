@@ -1,11 +1,27 @@
 "use client";
 
 import { useState, useMemo } from "react";
-
 import { Filter, ProductCard } from "../../../components/products";
 
+type Product = {
+  id: number;
+  name: string;
+  price: number;
+  category: string;
+  createdAt: string;
+  image: string;
+  rating: number;
+  reviews: number;
+};
+
+type Filters = {
+  category: string;
+  value: [number, number];
+  sort: string;
+};
+
 export default function Products() {
-  const productsData = [
+  const productsData: Product[] = [
     {
       id: 1,
       name: "iPhone 15",
@@ -48,7 +64,7 @@ export default function Products() {
     },
   ];
 
-  const [filters, setFilters] = useState({
+  const [filters, setFilters] = useState<Filters>({
     category: "all",
     value: [200, 800],
     sort: "",
@@ -58,23 +74,27 @@ export default function Products() {
     let result = [...productsData];
     const { category, value, sort } = filters;
 
-    if (category !== "all")
+    if (category !== "all") {
       result = result.filter((p) => p.category === category);
+    }
+
     result = result.filter((p) => p.price >= value[0] && p.price <= value[1]);
 
     if (sort === "highest") result.sort((a, b) => b.price - a.price);
     if (sort === "lowest") result.sort((a, b) => a.price - b.price);
     if (sort === "newest")
       result.sort(
-        (a, b) => new Date(b.createdAt) - new Date(a.createdAt).getTime(),
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
       );
     if (sort === "oldest")
       result.sort(
-        (a, b) => new Date(a.createdAt) - new Date(b.createdAt).getTime(),
+        (a, b) =>
+          new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
       );
 
     return result;
-  }, [filters]);
+  }, [filters, productsData]);
 
   return (
     <main className="py-6">

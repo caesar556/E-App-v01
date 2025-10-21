@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 
 export default function CardSlide({ title, src, discount, buttonTitle }) {
   return (
-    <Card className="h-full bg-purple-300 flex justify-between ">
+    <Card className="h-full bg-black/90 text-white flex justify-between ">
       <div
         className="flex flex-col flex-1 
         justify-start pt-20 lg:pt-16 pl-6 lg:pl-16"
@@ -16,12 +16,12 @@ export default function CardSlide({ title, src, discount, buttonTitle }) {
           {discount}
         </p>
         <h2
-          className="text-[24px] lg:text-[38px] 
+          className="text[18px] md:text-[24px] lg:text-[35px] 
           font-extrabold"
         >
           {title}
         </h2>
-        <div className="mt-4  flex  gap-3 items-center ">
+        <div className="mt-4 flex gap-6 items-center ">
           <Button
             size="lg"
             className="rounded-full font-medium 
@@ -42,12 +42,12 @@ export default function CardSlide({ title, src, discount, buttonTitle }) {
         </div>
       </div>
       <div
-        className="hidden md:flex items-center 
-        justify-center w-[50%]"
+        className="flex items-center 
+        justify-center w-full md:w-[50%]"
       >
         <img
-          className="w-[250px] lg:w-[320px] 
-          h-[90%]"
+          className="w-[250px] lg:w-[320px]  
+          h-[100%] object-contain"
           src={src}
         />
       </div>

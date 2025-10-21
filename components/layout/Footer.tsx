@@ -2,224 +2,91 @@ import { Twitter, Facebook, Instagram, Linkedin } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-purple-300">
-      <div className="mx-auto max-w-screen-xl space-y-8 px-4 py-6 sm:px-6 lg:space-y-16 lg:px-8">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-          {/* Logo + description */}
+    <footer className="bg-black/90 text-gray-300">
+      <div className="mx-auto max-w-screen-xl px-4 py-10 sm:px-6 lg:px-12">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
           <div>
-            <div className="font-bold text-[32px] tracking-wide">
-              <span className="text-purple-700">E</span>-App
-            </div>
+            <h2 className="text-4xl font-bold text-white tracking-wide">
+              <span className="text-purple-600">E</span>-App
+            </h2>
 
-            <p className="mt-4 max-w-xs text-gray-500">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse non
-              cupiditate quae nam molestias.
+            <p className="mt-4 max-w-sm text-sm text-gray-400">
+              Empowering your shopping experience with quality and innovation.
+              Discover the best products and exclusive deals with E-App.
             </p>
 
-            {/* Social icons */}
-            <ul className="mt-8 flex gap-6">
-              <li>
+            <div className="mt-6 flex gap-5">
+              {[Twitter, Facebook, Instagram, Linkedin].map((Icon, i) => (
                 <a
+                  key={i}
                   href="#"
-                  rel="noreferrer"
                   target="_blank"
-                  className="text-gray-700 transition hover:opacity-75"
-                >
-                  <span className="sr-only">Twitter</span>
-                  <Twitter className="w-6 h-6" />
-                </a>
-              </li>
-
-              <li>
-                <a
-                  href="#"
                   rel="noreferrer"
-                  target="_blank"
-                  className="text-gray-700 transition hover:opacity-75"
+                  className="text-gray-400 hover:text-purple-500 transition"
                 >
-                  <span className="sr-only">Facebook</span>
-                  <Facebook className="w-6 h-6" />
+                  <Icon className="w-5 h-5" />
                 </a>
-              </li>
-
-              <li>
-                <a
-                  href="#"
-                  rel="noreferrer"
-                  target="_blank"
-                  className="text-gray-700 transition hover:opacity-75"
-                >
-                  <span className="sr-only">Instagram</span>
-                  <Instagram className="w-6 h-6" />
-                </a>
-              </li>
-
-              <li>
-                <a
-                  href="#"
-                  rel="noreferrer"
-                  target="_blank"
-                  className="text-gray-700 transition hover:opacity-75"
-                >
-                  <span className="sr-only">LinkedIn</span>
-                  <Linkedin className="w-6 h-6" />
-                </a>
-              </li>
-            </ul>
+              ))}
+            </div>
           </div>
-
-          {/* Links sections */}
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:col-span-2 lg:grid-cols-4">
+          <div className="lg:col-span-2 grid grid-cols-2 sm:grid-cols-3 gap-8">
             <div>
-              <p className="font-medium text-gray-900">Services</p>
-
-              <ul className="mt-6 space-y-4 text-sm">
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-700 transition hover:opacity-75"
-                  >
-                    1on1 Coaching
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-700 transition hover:opacity-75"
-                  >
-                    Company Review
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-700 transition hover:opacity-75"
-                  >
-                    Accounts Review
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-700 transition hover:opacity-75"
-                  >
-                    HR Consulting
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-700 transition hover:opacity-75"
-                  >
-                    SEO Optimisation
-                  </a>
-                </li>
+              <h3 className="text-white font-semibold text-sm uppercase tracking-wide">
+                Services
+              </h3>
+              <ul className="mt-4 space-y-2 text-sm">
+                {[
+                  "1on1 Coaching",
+                  "Company Review",
+                  "Accounts Review",
+                  "HR Consulting",
+                  "SEO Optimisation",
+                ].map((item, i) => (
+                  <li key={i}>
+                    <a href="#" className="hover:text-purple-400 transition">
+                      {item}
+                    </a>
+                  </li>
+                ))}
               </ul>
             </div>
-
             <div>
-              <p className="font-medium text-gray-900">Company</p>
-              <ul className="mt-6 space-y-4 text-sm">
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-700 transition hover:opacity-75"
-                  >
-                    About
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-700 transition hover:opacity-75"
-                  >
-                    Meet the Team
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-700 transition hover:opacity-75"
-                  >
-                    Accounts Review
-                  </a>
-                </li>
+              <h3 className="text-white font-semibold text-sm uppercase tracking-wide">
+                Company
+              </h3>
+              <ul className="mt-4 space-y-2 text-sm">
+                {["About", "Meet the Team", "Careers"].map((item, i) => (
+                  <li key={i}>
+                    <a href="#" className="hover:text-purple-400 transition">
+                      {item}
+                    </a>
+                  </li>
+                ))}
               </ul>
             </div>
-
             <div>
-              <p className="font-medium text-gray-900">Helpful Links</p>
-              <ul className="mt-6 space-y-4 text-sm">
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-700 transition hover:opacity-75"
-                  >
-                    Contact
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-700 transition hover:opacity-75"
-                  >
-                    FAQs
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-700 transition hover:opacity-75"
-                  >
-                    Live Chat
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <p className="font-medium text-gray-900">Legal</p>
-              <ul className="mt-6 space-y-4 text-sm">
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-700 transition hover:opacity-75"
-                  >
-                    Accessibility
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-700 transition hover:opacity-75"
-                  >
-                    Returns Policy
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-700 transition hover:opacity-75"
-                  >
-                    Refund Policy
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-700 transition hover:opacity-75"
-                  >
-                    Hiring-3 Statistics
-                  </a>
-                </li>
+              <h3 className="text-white font-semibold text-sm uppercase tracking-wide">
+                Helpful Links
+              </h3>
+              <ul className="mt-4 space-y-2 text-sm">
+                {["Contact", "FAQs", "Live Chat"].map((item, i) => (
+                  <li key={i}>
+                    <a href="#" className="hover:text-purple-400 transition">
+                      {item}
+                    </a>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
         </div>
-
-        <p className="text-xs text-gray-500 text-center">
-          &copy; 2025. E-App Designed by Belal Hussein 
-        </p>
+        <div className="mt-10 border-t border-gray-800 pt-6 text-center">
+          <p className="text-xs text-gray-500">
+            &copy; {new Date().getFullYear()} E-App. Designed by{" "}
+            <span className="text-purple-500 font-medium">Belal Hussein</span>.
+            All rights reserved.
+          </p>
+        </div>
       </div>
     </footer>
   );

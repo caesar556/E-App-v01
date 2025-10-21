@@ -1,4 +1,5 @@
 "use client";
+
 import { useState, useEffect } from "react";
 import {
   Select,
@@ -12,22 +13,30 @@ import {
 import { Field, FieldDescription, FieldTitle } from "@/components/ui/field";
 import { Slider } from "@/components/ui/slider";
 
-export default function Filter({ onFilterChange }) {
-  const [value, setValue] = useState([200, 800]);
-  const [category, setCategory] = useState("all");
-  const [sort, setSort] = useState("");
+type Filters = {
+  category: string;
+  value: [number, number];
+  sort: string;
+};
+
+type FilterProps = {
+  onFilterChange: React.Dispatch<React.SetStateAction<Filters>>;
+};
+
+export default function Filter({ onFilterChange }: FilterProps) {
+  const [value, setValue] = useState<[number, number]>([200, 800]);
+  const [category, setCategory] = useState<string>("all");
+  const [sort, setSort] = useState<string>("");
 
   useEffect(() => {
-    // رجّع بس القيم الجديدة مش المنتجات نفسها
     onFilterChange({ category, value, sort });
-  }, [category, value, sort]);
+  }, [category, value, sort, onFilterChange]);
 
   return (
     <section className="flex flex-col gap-6 p-4 max-w-md mx-auto">
-      {/* Category */}
       <div className="flex flex-col gap-2">
         <h2 className="text-lg font-semibold">Category</h2>
-        <Select onValueChange={setCategory}>
+        <Select onValueChange={setCategory} defaultValue={category}>
           <SelectTrigger className="w-full border rounded-md">
             <SelectValue placeholder="Select a category" />
           </SelectTrigger>
@@ -43,7 +52,6 @@ export default function Filter({ onFilterChange }) {
         </Select>
       </div>
 
-      {/* Price */}
       <div className="flex flex-col gap-2">
         <Field>
           <FieldTitle>Price Range</FieldTitle>
@@ -54,7 +62,7 @@ export default function Filter({ onFilterChange }) {
           </FieldDescription>
           <Slider
             value={value}
-            onValueChange={setValue}
+            onValueChange={(val) => setValue(val as [number, number])}
             max={1000}
             min={0}
             step={10}
@@ -64,10 +72,9 @@ export default function Filter({ onFilterChange }) {
         </Field>
       </div>
 
-      {/* Sort */}
       <div className="flex flex-col gap-2">
         <h2 className="text-lg font-semibold">Sort By</h2>
-        <Select onValueChange={setSort}>
+        <Select onValueChange={setSort} defaultValue={sort}>
           <SelectTrigger className="w-full border rounded-md">
             <SelectValue placeholder="Select sorting" />
           </SelectTrigger>

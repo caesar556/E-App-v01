@@ -5,7 +5,7 @@ import { NavBar, Footer } from "../../components/layout/";
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body className="bg-purple-200">
+      <body className="bg-black/90">
         <NavBar />
         <div className="pt-20">{children}</div>
         <Footer />
