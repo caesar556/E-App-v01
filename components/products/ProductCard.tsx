@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ShoppingCart, Star } from "lucide-react";
+import { toast } from "sonner";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../store/features/cartReducer";
 
@@ -12,6 +13,7 @@ export default function ProductCard({ product }) {
 
   const handleAdd = () => {
     dispatch(addToCart({ ...product, quantity: 1 }));
+    toast.success("Product added to cart");
   };
 
   return (

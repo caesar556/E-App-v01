@@ -23,7 +23,7 @@ export default function CartPage() {
   };
 
   return (
-    <section className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8 text-gray-100">
+    <section className="mx-auto max-w-6xl min-h-screen px-4 py-8 sm:px-6 sm:py-12 lg:px-8 text-gray-100">
       <div className="mx-auto max-w-3xl">
         <header className="flex gap-2 justify-center mb-6 items-center">
           <ShoppingCart />
