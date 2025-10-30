@@ -99,7 +99,7 @@ export default function Products() {
   return (
     <div className="pt-24 mb-16">
       <div className="flex">
-        <div className="w-[35%]">
+        <div className="w-[40%] lg:w-[35%]">
           <Filter onFilterChange={setFilters} />
         </div>
         <div className="flex-1">

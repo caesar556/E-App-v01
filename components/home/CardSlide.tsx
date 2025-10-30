@@ -1,6 +1,7 @@
 "use client";
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
+import Image from "next/image";
 import gsap from "gsap";
 import { SplitText, ScrollTrigger } from "gsap/all";
 import { Card } from "@/components/ui/card";
@@ -121,12 +122,16 @@ export default function CardSlide({ title, src, discount, buttonTitle }) {
         </div>
       </div>
 
-      <div className="flex items-center justify-center w-full md:w-[50%]">
-        <img
-          ref={imageRef}
-          className="w-[250px] lg:w-[320px] h-[100%] object-contain"
+      <div
+        ref={imageRef}
+        className="flex items-center justify-center w-full md:w-[50%]"
+      >
+        <Image
+          className="object-contain"
           src={src}
-          alt="Product"
+          alt="Product image"
+          width={320}
+          height={100}
         />
       </div>
     </Card>

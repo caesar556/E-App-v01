@@ -4,8 +4,16 @@ import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ShoppingCart, Star } from "lucide-react";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../store/features/cartReducer";
 
 export default function ProductCard({ product }) {
+  const dispatch = useDispatch();
+
+  const handleAdd = () => {
+    dispatch(addToCart({ ...product, quantity: 1 }));
+  };
+
   return (
     <Card className="w-full max-w-[280px] sm:max-w-[320px] md:max-w-[360px] overflow-hidden bg-black/90  text-white rounded-2xl shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-[1.02] mx-auto border border-violet-700">
       <div className="relative w-full aspect-[3/3] overflow-hidden rounded-t-2xl">
@@ -42,6 +50,7 @@ export default function ProductCard({ product }) {
         <Button
           variant="secondary"
           className="w-full bg-violet-900 text-white font-medium hover:bg-violet-700 text-sm sm:text-base rounded-xl"
+          onClick={handleAdd}
         >
           <ShoppingCart className="mr-2 h-4 w-4" />
           Add to Cart

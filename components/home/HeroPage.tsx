@@ -81,7 +81,7 @@ export default function HeroPage() {
       <div className="absolute inset-0 flex flex-col justify-center items-center">
         <h1
           ref={titleRef}
-          className="text-white text-4xl xl:text-8xl font-extrabold tracking-tight"
+          className="text-white text-4xl md:text-6xl xl:text-8xl font-extrabold tracking-tight"
         >
           Discover Your Style
         </h1>
