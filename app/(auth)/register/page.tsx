@@ -52,8 +52,8 @@ export default function Register() {
     "px-4 py-5 border border-violet-700/40 bg-slate-900 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-600 hover:border-violet-600 transition-all";
 
   return (
-    <div className="bg-black/90 h-dvh pt-10 ">
-      <Card className="border border-violet-800  bg-black/80 text-white px-8 w-[90%] md:w-[60%] lg:w-[45%] mx-auto">
+    <div>
+      <Card className="border border-violet-800 bg-black/80 text-white px-8 mx-auto">
         <CardHeader className="text-center">
           <CardTitle className="text-4xl">Register</CardTitle>
           <CardDescription>
@@ -148,7 +148,7 @@ export default function Register() {
               </Button>
             </div>
             <div className="text-center mt-4">
-              You already have account? {" "}
+              You already have account?{" "}
               <Link href="/login" className="text-violet-600 ">
                 login
               </Link>

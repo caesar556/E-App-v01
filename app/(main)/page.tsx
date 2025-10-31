@@ -5,6 +5,7 @@ import {
   Banner,
   Subscribe,
   HeroPage,
+  AboutSection,
 } from "../../components/home/";
 
 import { ProductCard } from "../../components/products/";
@@ -128,6 +129,7 @@ export default function Home() {
         </div>
       </div>
 
+      <AboutSection />
       <Banner />
       <Subscribe />
     </section>

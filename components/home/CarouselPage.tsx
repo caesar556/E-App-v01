@@ -9,7 +9,7 @@ import CardSlide from "./CardSlide";
 
 export default function CarouselPage() {
   return (
-    <Carousel className="w-[80%] mx-auto mt-8">
+    <Carousel className="w-[80%] mx-auto mt-24 mb-32">
       <CarouselContent>
         <CarouselItem className="h-[400px] ">
           <CardSlide
