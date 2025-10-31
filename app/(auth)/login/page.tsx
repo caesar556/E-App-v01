@@ -106,7 +106,7 @@ export default function Login() {
               </Button>
             </div>
             <div className="text-center mt-4">
-              You don't have an account?{" "}
+              You  an account?{" "}
               <Link href="/register" className="text-violet-600 ">
                 register
               </Link>

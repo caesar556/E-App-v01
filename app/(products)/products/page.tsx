@@ -21,49 +21,6 @@ type Filters = {
 };
 
 export default function Products() {
-  const productsData: Product[] = [
-    {
-      id: 1,
-      name: "iPhone 15",
-      price: 950,
-      category: "phones",
-      createdAt: "2024-08-01",
-      image: "/assets/product1.png",
-      rating: 4.8,
-      reviews: 152,
-    },
-    {
-      id: 2,
-      name: "Dell XPS",
-      price: 800,
-      category: "laptops",
-      createdAt: "2024-07-15",
-      image: "/assets/category2.png",
-      rating: 4.6,
-      reviews: 98,
-    },
-    {
-      id: 3,
-      name: "Custom PC",
-      price: 1000,
-      category: "pc",
-      createdAt: "2024-06-10",
-      image: "/assets/category2.png",
-      rating: 4.9,
-      reviews: 203,
-    },
-    {
-      id: 4,
-      name: "Samsung Galaxy",
-      price: 700,
-      category: "phones",
-      createdAt: "2024-05-01",
-      image: "/assets/category2.png",
-      rating: 4.5,
-      reviews: 175,
-    },
-  ];
-
   const [filters, setFilters] = useState<Filters>({
     category: "all",
     value: [200, 800],
@@ -71,6 +28,49 @@ export default function Products() {
   });
 
   const filteredProducts = useMemo(() => {
+    const productsData: Product[] = [
+      {
+        id: 1,
+        name: "iPhone 15",
+        price: 950,
+        category: "phones",
+        createdAt: "2024-08-01",
+        image: "/assets/product1.png",
+        rating: 4.8,
+        reviews: 152,
+      },
+      {
+        id: 2,
+        name: "Dell XPS",
+        price: 800,
+        category: "laptops",
+        createdAt: "2024-07-15",
+        image: "/assets/category2.png",
+        rating: 4.6,
+        reviews: 98,
+      },
+      {
+        id: 3,
+        name: "Custom PC",
+        price: 1000,
+        category: "pc",
+        createdAt: "2024-06-10",
+        image: "/assets/category2.png",
+        rating: 4.9,
+        reviews: 203,
+      },
+      {
+        id: 4,
+        name: "Samsung Galaxy",
+        price: 700,
+        category: "phones",
+        createdAt: "2024-05-01",
+        image: "/assets/category2.png",
+        rating: 4.5,
+        reviews: 175,
+      },
+    ];
+
     let result = [...productsData];
     const { category, value, sort } = filters;
 
@@ -94,7 +94,7 @@ export default function Products() {
       );
 
     return result;
-  }, [filters, productsData]);
+  }, [filters]);
 
   return (
     <div className="pt-24 mb-16">
