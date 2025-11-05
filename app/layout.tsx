@@ -1,7 +1,8 @@
 import "../styles/globals.css";
 import { ReactNode } from "react";
 import { Poppins, Inter } from "next/font/google";
-import { Providers } from "./Providers";
+import AuthProvider from "../components/auth/AuthProvider";
+import { getCurrentUser } from "@/lib/refresh-token/getCurrentUser";
 import { Toaster } from "sonner";
 
 const poppins = Poppins({
@@ -21,14 +22,19 @@ export const metadata = {
   description: "E-App Store is a modern e-commerce platform",
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default async function RootLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
+  const user = await getCurrentUser();
   return (
     <html lang="en" className={`${poppins.variable} ${inter.variable}`}>
       <body>
-        <Providers>
+        <AuthProvider user={user}>
           {children}
           <Toaster richColors position="top-center" />
-        </Providers>
+        </AuthProvider>
       </body>
     </html>
   );

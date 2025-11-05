@@ -20,6 +20,8 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { registerSchema } from "@/lib/validation/auth";
+import { register } from "@/store/auth";
+import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
@@ -27,6 +29,9 @@ import { toast } from "sonner";
 import * as z from "zod";
 
 export default function Register() {
+  const dispatch = useAppDispatch();
+  const { loading } = useAppSelector((state) => state.auth);
+
   const {
     control,
     handleSubmit,
@@ -43,9 +48,15 @@ export default function Register() {
   });
 
   const onSubmit = (data: z.infer<typeof registerSchema>) => {
-    toast.success("Register successfully");
-    console.log(data);
-    reset();
+    dispatch(register(data))
+      .unwrap()
+      .then(() => {
+        toast.success("Account created successfully");
+        reset();
+      })
+      .catch((err) => {
+        toast.error(err?.message || "Something went wrong");
+      });
   };
 
   const inputStyle =

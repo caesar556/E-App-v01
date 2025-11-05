@@ -44,10 +44,9 @@ export default function Cart() {
                 min="1"
                 value={item.quantity}
                 onChange={(e) => {
-                  const val = Number(e.target.value);
-                  if (val > 0) {
-                    dispatch(updateQty({ id: item.id, qty: val }));
-                  }
+                  let val = Number(e.target.value);
+                  if (!val || val < 1) val = 1;
+                  dispatch(updateQty({ id: item.id, qty: val }));
                 }}
                 className="h-8 w-16 text-center bg-slate-800 border-violet-700 text-gray-300"
               />

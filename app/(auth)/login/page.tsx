@@ -21,12 +21,16 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { loginSchema } from "@/lib/validation/auth";
 
+import { login } from "@/store/auth";
+import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
 
 export default function Login() {
+  const dispatch = useAppDispatch();
   const {
     control,
     handleSubmit,
@@ -41,9 +45,16 @@ export default function Login() {
   });
 
   const onSubmit = (data: z.infer<typeof loginSchema>) => {
-    toast.success("Welcome again");
-    console.log(data);
-    reset();
+    dispatch(login(data))
+      .unwrap()
+      .then(() => {
+        toast.success("Login successfully");
+        reset();
+      })
+      .catch((err) => {
+        console.log("err", err);
+        toast.error(err?.message || "Something went wrong");
+      });
   };
 
   const inputStyle =
@@ -106,7 +117,7 @@ export default function Login() {
               </Button>
             </div>
             <div className="text-center mt-4">
-              You  an account?{" "}
+              You an account?{" "}
               <Link href="/register" className="text-violet-600 ">
                 register
               </Link>

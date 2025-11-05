@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ShoppingCart, Trash2 } from "lucide-react";
+import { ShoppingCart, Trash2, PlusIcon, MinusIcon } from "lucide-react";
 
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/store/store";
@@ -25,15 +25,17 @@ export default function CartPage() {
   return (
     <section className="mx-auto max-w-6xl min-h-screen px-4 py-8 sm:px-6 sm:py-12 lg:px-8 text-gray-100">
       <div className="mx-auto max-w-3xl">
-        <header className="flex gap-2 justify-center mb-6 items-center">
+        <header className="flex gap-2 justify-center mb-16 items-center">
           <ShoppingCart />
-          <h1 className="text-4xl font-semibold text-gray-100 sm:text-3xl">
-            Your Cart
+          <h1 className="text-4xl font-semibold  text-gray-100 sm:text-3xl">
+            Your Cart {items.length}
           </h1>
         </header>
 
         {items.length === 0 ? (
-          <p className="text-center text-gray-400">Your cart is empty.</p>
+          <p className="text-center text-2xl my-20 text-gray-400">
+            Your cart is empty.
+          </p>
         ) : (
           <div className="space-y-8">
             {items.map((item) => (
@@ -56,16 +58,38 @@ export default function CartPage() {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3">
+                <div className="flex  items-center gap-3">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() =>
+                      item.quantity > 1 &&
+                      handleQtyChange(item.id, item.quantity - 1)
+                    }
+                    className="text-violet-400 hover:text-red-500 transition duration-300"
+                  >
+                    <MinusIcon size={20} />
+                  </Button>
                   <Input
                     type="number"
                     min="1"
                     value={item.quantity}
-                    onChange={(e) =>
-                      handleQtyChange(item.id, Number(e.target.value))
-                    }
+                    onChange={(e) => {
+                      let value = Number(e.target.value);
+                      if (!value || value < 1) value = 1;
+                      handleQtyChange(item.id, value);
+                    }}
                     className="h-8 w-14 text-center bg-slate-800 border-violet-700 text-gray-300"
                   />
+
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => handleQtyChange(item.id, item.quantity + 1)}
+                    className="text-violet-400 hover:text-red-500 transition duration-300"
+                  >
+                    <PlusIcon size={20} />
+                  </Button>
                   <Button
                     variant="ghost"
                     size="icon"

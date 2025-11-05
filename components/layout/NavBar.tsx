@@ -10,10 +10,12 @@ import DropMenu from "./DropMenu";
 import PopupCart from "./PopupCart";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { useAppSelector } from "@/hooks/reduxHooks";
 
 export default function NavBar() {
   const [open, setOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const { isAuthenticated } = useAppSelector((s) => s.auth);
   const navRef = useRef(null);
   useGSAP(() => {
     gsap.fromTo(
@@ -38,6 +40,7 @@ export default function NavBar() {
     >
       <Link href="/" className="text-[32px] font-bold tracking-wide">
         <span className="text-violet-500">E</span>-App
+        {isAuthenticated && <h3 className="text-red-700">Authtaction done </h3>}
       </Link>
 
       <nav
