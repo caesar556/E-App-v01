@@ -20,8 +20,8 @@ export default function ProductCard({ product }) {
     <Card className="w-full max-w-[280px] sm:max-w-[320px] md:max-w-[360px] overflow-hidden bg-black/90  text-white rounded-2xl shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-[1.02] mx-auto border border-violet-700">
       <div className="relative w-full aspect-[3/3] overflow-hidden rounded-t-2xl">
         <Image
-          src={product.image}
-          alt={product.name}
+          src={product.imageCover}
+          alt={product.title}
           fill
           className="object-cover object-center"
           sizes="(max-width: 768px) 100vw, 400px"
@@ -39,13 +39,13 @@ export default function ProductCard({ product }) {
         </div>
 
         <h3 className="text-sm sm:text-base font-semibold leading-tight line-clamp-2">
-          {product.name}
+          {product.title}
         </h3>
 
         <div className="flex items-center gap-2">
           <span className="text-lg sm:text-xl font-bold">${product.price}</span>
           <span className="text-sm sm:text-base text-gray-400 line-through">
-            ${product.originalPrice}
+            ${product.discount}
           </span>
         </div>
 

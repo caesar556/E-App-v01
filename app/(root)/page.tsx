@@ -16,61 +16,7 @@ import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-type Product = {
-  id: number;
-  name: string;
-  price: number;
-  category: string;
-  createdAt: string;
-  image: string;
-  rating: number;
-  reviews: number;
-};
-
-export default function Home() {
-  const productsData: Product[] = [
-    {
-      id: 1,
-      name: "iPhone 15",
-      price: 950,
-      category: "phones",
-      createdAt: "2024-08-01",
-      image: "/assets/product1.png",
-      rating: 4.8,
-      reviews: 152,
-    },
-    {
-      id: 2,
-      name: "Dell XPS",
-      price: 800,
-      category: "laptops",
-      createdAt: "2024-07-15",
-      image: "/assets/category2.png",
-      rating: 4.6,
-      reviews: 98,
-    },
-    {
-      id: 3,
-      name: "Custom PC",
-      price: 1000,
-      category: "pc",
-      createdAt: "2024-06-10",
-      image: "/assets/category2.png",
-      rating: 4.9,
-      reviews: 203,
-    },
-    {
-      id: 4,
-      name: "Samsung Galaxy",
-      price: 700,
-      category: "phones",
-      createdAt: "2024-05-01",
-      image: "/assets/category2.png",
-      rating: 4.5,
-      reviews: 175,
-    },
-  ];
-
+export default async function Home() {
   const sectionRef = useRef(null);
   const titleRef = useRef(null);
   const cardsRef = useRef<HTMLDivElement>(null);
@@ -123,9 +69,7 @@ export default function Home() {
         </h1>
 
         <div ref={cardsRef} className="flex gap-6 flex-wrap justify-center">
-          {productsData.slice(0, 3).map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
+          Products section
         </div>
       </div>
 

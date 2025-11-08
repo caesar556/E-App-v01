@@ -11,11 +11,13 @@ import PopupCart from "./PopupCart";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useAppSelector } from "@/hooks/reduxHooks";
+import { Button } from "../ui/button";
 
 export default function NavBar() {
   const [open, setOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const { isAuthenticated } = useAppSelector((s) => s.auth);
+
   const navRef = useRef(null);
   useGSAP(() => {
     gsap.fromTo(
@@ -73,7 +75,14 @@ export default function NavBar() {
           </span>
           <BellRing size={21} />
         </button>
-        <DropMenu />
+        {isAuthenticated ? <DropMenu /> 
+        : (
+          <Button className="bg-violet-900 hover:bg-violet-700 ">
+            <Link href="/login">Login</Link>
+
+          </Button>
+        )
+        }
       </div>
 
       <button

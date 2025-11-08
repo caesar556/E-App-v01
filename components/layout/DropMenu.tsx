@@ -17,17 +17,24 @@ import {
   GithubIcon,
 } from "lucide-react";
 
+import Image from "next/image";
+
 export default function DropMenu() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <span className="flex items-center gap-1 font-medium">
-          <CircleUserRound size={22} /> 
-          <span className="hidden md:block" >Account</span>
-        </span>
+        <Image
+          src="/images/product1.jpg"
+          alt="profile image "
+          width={40}
+          height={40}
+        />
       </DropdownMenuTrigger>
-      
-      <DropdownMenuContent className="w-56 bg-black/80  text-white mt-8 " align="center">
+
+      <DropdownMenuContent
+        className="w-56 bg-black/80  text-white mt-8 "
+        align="center"
+      >
         <DropdownMenuLabel>manage Account</DropdownMenuLabel>
         <DropdownMenuGroup>
           <Link href="/profile">
@@ -58,7 +65,7 @@ export default function DropMenu() {
             <Headset />
           </DropdownMenuShortcut>
         </DropdownMenuItem>
-        <DropdownMenuSeparator  />
+        <DropdownMenuSeparator />
         <DropdownMenuItem className="bg-red-700">
           Log out
           <DropdownMenuShortcut>

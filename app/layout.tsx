@@ -1,9 +1,8 @@
 import "../styles/globals.css";
 import { ReactNode } from "react";
 import { Poppins, Inter } from "next/font/google";
-import AuthProvider from "../components/auth/AuthProvider";
-import { getCurrentUser } from "@/lib/refresh-token/getCurrentUser";
 import { Toaster } from "sonner";
+import { Providers } from "./Provider";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -27,14 +26,13 @@ export default async function RootLayout({
 }: {
   children: ReactNode;
 }) {
-  const user = await getCurrentUser();
   return (
     <html lang="en" className={`${poppins.variable} ${inter.variable}`}>
       <body>
-        <AuthProvider user={user}>
+        <Providers>
           {children}
           <Toaster richColors position="top-center" />
-        </AuthProvider>
+        </Providers>
       </body>
     </html>
   );

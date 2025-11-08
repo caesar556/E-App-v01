@@ -1,5 +1,5 @@
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import axiosInstance from "../../utils/axiosApi";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
 interface AuthState {
   isAuthenticated: boolean;
@@ -31,7 +31,7 @@ export const register = createAsyncThunk(
   "auth/register",
   async (data: RegisterPayload, { rejectWithValue }) => {
     try {
-      const res = await axiosInstance.post("api/auth/sign-up", data);
+      const res = await axios.post("/auth/sign-up", data);
       return res.data.Data?.user || res.data.user;
     } catch (err: any) {
       return rejectWithValue(err.response?.data || "Registration failed");
@@ -43,7 +43,7 @@ export const login = createAsyncThunk(
   "auth/login",
   async (data: LoginPayload, { rejectWithValue }) => {
     try {
-      const res = await axiosInstance.post("api/auth/login", data);
+      const res = await axios.post("/auth/login", data);
       return res.data.Data?.user || res.data.user;
     } catch (err: any) {
       return rejectWithValue(err.response?.data || "Login failed");
@@ -51,15 +51,14 @@ export const login = createAsyncThunk(
   },
 );
 
-export const refreshToken = createAsyncThunk(
-  "auth/refresh",
+export const fetchCurrentUser = createAsyncThunk(
+  "auth/fetchCurrentUser",
   async (_, { rejectWithValue }) => {
     try {
-      const res = await axiosInstance.post("api/auth/refresh-token");
-      console.log("res data", res.data);
-      return res.data;
+      const res = await axios.get("/auth/me");
+      return res.data.Data?.user || res.data.user;
     } catch (err: any) {
-      return rejectWithValue(err.response?.data || "Refresh failed");
+      return rejectWithValue(null);
     }
   },
 );
@@ -68,11 +67,6 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setUser(state, action: PayloadAction<null>) {
-      state.isAuthenticated = !!action.payload;
-      state.user = action.payload;
-      state.loading = false;
-    },
     logoutState(state) {
       state.isAuthenticated = false;
       state.user = null;
@@ -108,18 +102,18 @@ const authSlice = createSlice({
         s.error = a.payload;
       })
 
-      .addCase(refreshToken.fulfilled, (s, a) => {
-        s.isAuthenticated = true;
-        s.user = a.payload;
+      .addCase(fetchCurrentUser.fulfilled, (s, a) => {
+        if (a.payload) {
+          s.isAuthenticated = true;
+          s.user = a.payload;
+        }
       })
-      .addCase(refreshToken.rejected, (s, a) => {
+      .addCase(fetchCurrentUser.rejected, (s) => {
         s.isAuthenticated = false;
         s.user = null;
-        s.error = a.payload;
       });
   },
 });
 
-export const { logoutState, setUser } = authSlice.actions;
-
+export const { logoutState } = authSlice.actions;
 export default authSlice.reducer;

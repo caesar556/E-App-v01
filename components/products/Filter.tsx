@@ -24,7 +24,7 @@ type FilterProps = {
 };
 
 export default function Filter({ onFilterChange }: FilterProps) {
-  const [value, setValue] = useState<[number, number]>([200, 800]);
+  const [value, setValue] = useState<[number, number]>([400, 8000]);
   const [category, setCategory] = useState<string>("all");
   const [sort, setSort] = useState<string>("");
 
