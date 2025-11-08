@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
-import { fetchProducts } from "@/store/products";
+import { useAppSelector } from "@/hooks/reduxHooks";
+import { useFetchProducts } from "@/hooks/useFetchProducts";
 import { Filter, ProductCard } from "./index";
 
 type Filters = {
@@ -12,18 +12,18 @@ type Filters = {
 };
 
 export default function Products() {
-  const dispatch = useAppDispatch();
+  const { fetchAllProducts } = useFetchProducts();
   const { items, loading, error } = useAppSelector((state) => state.products);
 
   const [filters, setFilters] = useState<Filters>({
     category: "all",
-    value: [200, 800],
+    value: [400, 8000],
     sort: "",
   });
 
   useEffect(() => {
-    dispatch(fetchProducts());
-  }, [dispatch]);
+    fetchAllProducts();
+  }, []);
 
   const filteredProducts = useMemo(() => {
     let result = [...items];

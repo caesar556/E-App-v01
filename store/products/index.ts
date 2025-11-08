@@ -1,13 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const url = "https://e-app-api.vercel.app/api";
+
 export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
   async (_, thunkAPI) => {
     try {
-      const res = await axios.get(
-        `${process.env.API_URL}/products`,
-      );
+      const res = await axios.get(`${url}/products`);
       return res.data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response?.data || "Fetch failed");
