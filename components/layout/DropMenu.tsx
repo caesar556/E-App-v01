@@ -19,15 +19,16 @@ import {
 
 import Image from "next/image";
 
-export default function DropMenu() {
+export default function DropMenu({ user }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Image
-          src="/images/product1.jpg"
+          src={user.data.user.profileImage}
           alt="profile image "
-          width={40}
-          height={40}
+          width={50}
+          height={50}
+          className="rounded-full"
         />
       </DropdownMenuTrigger>
 

@@ -20,19 +20,17 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { loginSchema } from "@/lib/validation/auth";
-
-import { login } from "@/store/auth";
-import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
+import { useRouter } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
-import { redirect } from "next/navigation";
+import { useLoginMutation } from "@/store/auth/authApi";
 
 export default function Login() {
-  const dispatch = useAppDispatch();
-  const { loading } = useAppSelector((s) => s.auth);
+  const [login, { isLoading }] = useLoginMutation();
+  const router = useRouter();
   const {
     control,
     handleSubmit,
@@ -47,16 +45,14 @@ export default function Login() {
   });
 
   const onSubmit = (data: z.infer<typeof loginSchema>) => {
-    dispatch(login(data))
-      .unwrap()
-      .then(() => {
-        toast.success("Login successfully");
-        reset();
-        redirect("/");
-      })
-      .catch((err) => {
-        toast.error(err?.message || "Something went wrong");
-      });
+    try {
+      const res = login(data).unwrap();
+      toast.success("Login successfully");
+      reset();
+      router.push("/");
+    } catch (err) {
+      toast.error("Something went wrong");
+    }
   };
 
   const inputStyle =
@@ -114,9 +110,9 @@ export default function Login() {
               <Button
                 type="submit"
                 className="w-full px-6 py-5 text-lg bg-violet-800 hover:bg-violet-700 rounded-lg transition-all"
-                disabled={loading}
+                disabled={isLoading}
               >
-                {loading ? "Loading..." : "Login"}
+                {isLoading ? "Logging in..." : "Login"}
               </Button>
             </div>
             <div className="text-center mt-4">

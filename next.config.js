@@ -1,8 +1,9 @@
-const { env } = require("process");
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  allowedDevOrigins: [env.REPLIT_DOMAINS.split(",")[0]],
+  allowedDevOrigins: process.env.REPLIT_DOMAINS
+    ? [process.env.REPLIT_DOMAINS.split(",")[0]]
+    : [],
+
   images: {
     remotePatterns: [
       {

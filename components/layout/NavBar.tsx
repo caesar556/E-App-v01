@@ -10,13 +10,13 @@ import DropMenu from "./DropMenu";
 import PopupCart from "./PopupCart";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { useAppSelector } from "@/hooks/reduxHooks";
 import { Button } from "../ui/button";
+import { useAuthMeQuery } from "@/store/auth/authApi";
 
 export default function NavBar() {
   const [open, setOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const { isAuthenticated } = useAppSelector((s) => s.auth);
+  const { data: user } = useAuthMeQuery();
 
   const navRef = useRef(null);
   useGSAP(() => {
@@ -42,7 +42,6 @@ export default function NavBar() {
     >
       <Link href="/" className="text-[32px] font-bold tracking-wide">
         <span className="text-violet-500">E</span>-App
-        {isAuthenticated && <h3 className="text-red-700">Authtaction done </h3>}
       </Link>
 
       <nav
@@ -75,14 +74,13 @@ export default function NavBar() {
           </span>
           <BellRing size={21} />
         </button>
-        {isAuthenticated ? <DropMenu /> 
-        : (
+        {user ? (
+          <DropMenu user={user} />
+        ) : (
           <Button className="bg-violet-900 hover:bg-violet-700 ">
             <Link href="/login">Login</Link>
-
           </Button>
-        )
-        }
+        )}
       </div>
 
       <button

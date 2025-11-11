@@ -5,13 +5,25 @@ import { Button } from "../ui/button";
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "@/store/store";
-import { removeFromCart, updateQty } from "../../store/features/cartReducer";
+import {
+  useGetCartQuery,
+  useAddToCartMutation,
+  useRemoveFromCartMutation,
+} from "@/store/features/cartApi";
 
 export default function Cart() {
-  const dispatch = useDispatch();
-  const { items } = useSelector((state: RootState) => state.cart);
+  const { data } = useGetCartQuery();
+  const [addToCart] = useAddToCartMutation();
+  const [removeFromCart] = useRemoveFromCartMutation();
+
+  const items = data?.data?.items;
+
+  const handleQtyChange = async (id: string, qty: number) => {
+    await addToCart({ productId: id, quantity: qty });
+  };
+  const handleRemove = async (id: string) => {
+    await removeFromCart(id);
+  };
 
   return (
     <div
@@ -20,21 +32,21 @@ export default function Cart() {
       aria-modal="true"
     >
       <ul className="mt-6 space-y-4">
-        {items.slice(0, 3).map((item) => (
-          <li key={item.id} className="flex items-center gap-4">
+        {items.map((item: any) => (
+          <li key={item.product._id} className="flex items-center gap-4">
             <Image
-              src={item.image}
-              alt={item.name}
+              src={item.product.imageCover}
+              alt={item.product.title}
               width={64}
               height={64}
               className="size-16 rounded-sm object-cover"
             />
 
             <div className="flex-1">
-              <h3 className="text-sm font-medium">{item.name}</h3>
+              <h3 className="text-sm font-medium">{item.product.title}</h3>
               <p className="text-xs text-gray-400">
-                {item.size ? `Size: ${item.size} • ` : ""}
-                {item.color ? `Color: ${item.color}` : ""}
+                {item.size ? `Size: ${item?.product.size} • ` : ""}
+                {item.color ? `Color: ${item?.product.color}` : ""}
               </p>
             </div>
 
@@ -44,16 +56,16 @@ export default function Cart() {
                 min="1"
                 value={item.quantity}
                 onChange={(e) => {
-                  let val = Number(e.target.value);
-                  if (!val || val < 1) val = 1;
-                  dispatch(updateQty({ id: item.id, qty: val }));
+                  let value = Number(e.target.value);
+                  if (!value || value < 1) value = 1;
+                  handleQtyChange(item.product._id, value);
                 }}
                 className="h-8 w-16 text-center bg-slate-800 border-violet-700 text-gray-300"
               />
 
               <button
                 className="text-gray-400 hover:text-red-500 transition"
-                onClick={() => dispatch(removeFromCart(item.id))}
+                onClick={() => handleRemove(item.product._id)}
               >
                 <Trash2 className="w-4 h-4" />
               </button>
@@ -61,7 +73,6 @@ export default function Cart() {
           </li>
         ))}
       </ul>
-
       <div className="mt-6 space-y-3 text-center flex flex-col">
         <Link
           href="/cart"

@@ -7,26 +7,23 @@ import {
 } from "@/components/ui/popover";
 import Cart from "./Cart";
 import { ShoppingCart } from "lucide-react";
-import { useSelector } from "react-redux";
-import { RootState } from "@/store/store";
+import { useGetCartQuery } from "@/store/features/cartApi";
 
 export default function PopupCart() {
-  const { items } = useSelector((state: RootState) => state.cart);
+  const { data, isLoading } = useGetCartQuery();
+  const items = data?.data.items || [];
 
   return (
     <Popover>
-      <PopoverTrigger>
-        <span className="relative inline-block cursor-pointer">
+      <PopoverTrigger asChild>
+        <button className="relative inline-block cursor-pointer">
           <ShoppingCart size={22} />
-
-          <span
-            className={`absolute -top-2 -right-2 bg-violet-700 text-white text-[10px] font-semibold rounded-full w-5 h-5 flex items-center justify-center shadow-md transition-transform duration-200 ${
-              items.length <= 0 ? "hidden" : "scale-100"
-            }`}
-          >
-            {items.length}
-          </span>
-        </span>
+          {!isLoading && items.length > 0 && (
+            <span className="absolute -top-2 -right-2 bg-violet-700 text-white text-[10px] font-semibold rounded-full w-5 h-5 flex items-center justify-center shadow-md">
+              {items.length}
+            </span>
+          )}
+        </button>
       </PopoverTrigger>
 
       <PopoverContent

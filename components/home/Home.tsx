@@ -2,12 +2,12 @@
 
 import { CarouselPage, Banner, Subscribe, HeroPage, AboutSection } from "./";
 import { useRef, useEffect } from "react";
-import { useAppSelector } from "@/hooks/reduxHooks";
+import { Spinner } from "@/components/ui/spinner";
+import { useGetAllProductsQuery } from "@/store/products/productsApi";
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import ProductCard from "../products/ProductCard";
-import { useFetchProducts } from "@/hooks/useFetchProducts";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,17 +15,15 @@ export default function Home() {
   const sectionRef = useRef(null);
   const titleRef = useRef(null);
   const cardsRef = useRef<HTMLDivElement>(null);
-  const { fetchAllProducts } = useFetchProducts();
-  const { items } = useAppSelector((state) => state.products);
+
+  const { data, isLoading } = useGetAllProductsQuery();
+  const products = data?.data || [];
 
   useEffect(() => {
-    fetchAllProducts();
-  }, []);
+    if (isLoading) return;
 
-  useEffect(() => {
     const section = sectionRef.current;
     const cards = cardsRef.current?.children;
-
     if (!cards || cards.length === 0) return;
 
     gsap.from(titleRef.current, {
@@ -47,14 +45,14 @@ export default function Home() {
         rotateY: 10,
         duration: 0.8,
         ease: "power3.out",
-        delay: index * 0.2,
+        delay: index * 0.15,
         scrollTrigger: {
-          trigger: section,
-          start: "top 80%",
+          trigger: card,
+          start: "top 90%",
         },
       });
     });
-  }, [items]); 
+  }, [isLoading]);
 
   return (
     <section>
@@ -70,9 +68,15 @@ export default function Home() {
         </h1>
 
         <div ref={cardsRef} className="flex gap-6 flex-wrap justify-center">
-          {items.map((product) => (
-            <ProductCard key={product._id} product={product} />
-          ))}
+          {isLoading ? (
+            <div className="flex justify-center items-center">
+              <Spinner className="size-8 text-purple-500 " />
+            </div>
+          ) : (
+            products.map((product) => (
+              <ProductCard key={product._id} product={product} />
+            ))
+          )}
         </div>
       </div>
 

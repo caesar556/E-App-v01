@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import { useAppSelector } from "@/hooks/reduxHooks";
-import { useFetchProducts } from "@/hooks/useFetchProducts";
+import { useMemo, useState } from "react";
 import { Filter, ProductCard } from "./index";
+import { Spinner } from "@/components/ui/spinner";
+import { useGetAllProductsQuery } from "@/store/products/productsApi";
 
 type Filters = {
   category: string;
@@ -12,8 +12,9 @@ type Filters = {
 };
 
 export default function Products() {
-  const { fetchAllProducts } = useFetchProducts();
-  const { items, loading, error } = useAppSelector((state) => state.products);
+  const { data, isLoading, isError } = useGetAllProductsQuery();
+
+  const products  = data?.data || [];
 
   const [filters, setFilters] = useState<Filters>({
     category: "all",
@@ -21,12 +22,8 @@ export default function Products() {
     sort: "",
   });
 
-  useEffect(() => {
-    fetchAllProducts();
-  }, []);
-
   const filteredProducts = useMemo(() => {
-    let result = [...items];
+    let result = [...products];
     const { category, value, sort } = filters;
 
     if (category !== "all") {
@@ -49,10 +46,16 @@ export default function Products() {
       );
 
     return result;
-  }, [filters, items]);
+  }, [filters, products]);
 
-  if (loading) return <p className="text-center py-10">Loading...</p>;
-  if (error) return <p className="text-center py-10 text-red-500">{error}</p>;
+  if (isLoading)
+    return (
+      <div className="flex items-center justify-center h-dvh">
+        <Spinner className="size-8 text-purple-500" />
+      </div>
+    );
+  if (isError)
+    return <p className="text-center py-10 text-red-500">{isError}</p>;
 
   return (
     <div className="pt-24 mb-16">

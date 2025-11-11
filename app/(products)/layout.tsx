@@ -1,4 +1,5 @@
 import { NavBar, Footer } from "../../components/layout/";
+import AuthClient from "@/components/auth/AuthClient";
 
 export default function RootLayout({
   children,
@@ -7,9 +8,11 @@ export default function RootLayout({
 }) {
   return (
     <section className="bg-black/90 text-white">
-      <NavBar />
-      <div className="pt-20">{children}</div>
-      <Footer />
+      <AuthClient>
+        <NavBar />
+        <div className="pt-20">{children}</div>
+        <Footer />
+      </AuthClient>
     </section>
   );
 }
