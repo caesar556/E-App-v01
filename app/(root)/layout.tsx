@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <section className="bg-black/90">
+    <section className="bg-black/90 overflow-hidden">
       <NavBar />
       <div>{children}</div>
       <Footer />

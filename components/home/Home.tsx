@@ -2,8 +2,6 @@
 
 import { CarouselPage, Banner, Subscribe, HeroPage, AboutSection } from "./";
 import { useRef, useEffect } from "react";
-import { Spinner } from "@/components/ui/spinner";
-import { useGetAllProductsQuery } from "@/store/products/productsApi";
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
@@ -11,18 +9,12 @@ import ProductCard from "../products/ProductCard";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function Home() {
+export default function Home({ products }) {
   const sectionRef = useRef(null);
   const titleRef = useRef(null);
   const cardsRef = useRef<HTMLDivElement>(null);
 
-  const { data, isLoading } = useGetAllProductsQuery();
-  //@ts-ignore 
-  const products = data?.data || [];
-
   useEffect(() => {
-    if (isLoading) return;
-
     const section = sectionRef.current;
     const cards = cardsRef.current?.children;
     if (!cards || cards.length === 0) return;
@@ -53,7 +45,7 @@ export default function Home() {
         },
       });
     });
-  }, [isLoading]);
+  }, []);
 
   return (
     <section>
@@ -63,15 +55,15 @@ export default function Home() {
       <div ref={sectionRef} className="px-8 my-20">
         <h1
           ref={titleRef}
-          className="text-white text-5xl text-center my-8 font-bold"
+          className="text-white text-2xl lg:text-5xl text-center mt-8 mb-16 font-bold"
         >
-          Best Selling Products
+          Featured Products
         </h1>
 
         <div ref={cardsRef} className="flex gap-6 flex-wrap justify-center">
-          {isLoading ? (
+          {!products ? (
             <div className="flex justify-center items-center">
-              <Spinner className="size-8 text-purple-500 " />
+              <h2>Products not found</h2>
             </div>
           ) : (
             products.map((product) => (

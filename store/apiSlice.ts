@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { setUser } from "./features/auhSlice";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: process.env.NEXT_PUBLIC_API_URL,
@@ -22,6 +23,11 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
     }
 
     result = await baseQuery(args, api, extraOptions);
+  }
+  //@ts-ignore
+  const user = result?.data?.data?.user;
+  if (user) {
+    api.dispatch(setUser(user));
   }
 
   return result;

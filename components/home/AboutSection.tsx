@@ -6,12 +6,12 @@ import { Button } from "@/components/ui/button";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger, SplitText } from "gsap/all";
+import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
 export default function AboutSection() {
   const sectionRef = useRef<HTMLDivElement | null>(null);
-  
 
   useGSAP(() => {
     const section = sectionRef.current;
@@ -20,7 +20,7 @@ export default function AboutSection() {
     const card = section.querySelector(".about-card");
     const image = section.querySelector(".about-image");
     const content = section.querySelectorAll(".about-text, .about-btn");
-    
+
     gsap.fromTo(
       card,
       { opacity: 0, x: -100 },
@@ -75,7 +75,7 @@ export default function AboutSection() {
       className="py-20 w-[90%] mx-auto rounded-lg shadow-xl bg-[#0a0a0f] mt-52 mb-32"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="grid md:grid-cols-2 gap-24 items-center">
           <Card className="about-card bg-[#12121a] border-violet-700/40 shadow-violet-900/30 shadow-xl">
             <CardHeader>
               <CardTitle className="text-3xl font-bold text-violet-400 about-text">
@@ -100,11 +100,13 @@ export default function AboutSection() {
             </CardContent>
           </Card>
 
-          <div>
-            <img
-              src="https://images.unsplash.com/photo-1731690415686-e68f78e2b5bd?q=80&w=2670&auto=format&fit=crop"
+          <div className="flex justify-center">
+            <Image
+              src="/assets/category2.png"
               alt="E-App dashboard"
               className="about-image rounded-2xl shadow-xl shadow-violet-900/40"
+              width={400}
+              height={300}
             />
           </div>
         </div>

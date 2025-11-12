@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, useRef } from "react";
-import { BellRing, Menu, X } from "lucide-react";
+import { BellRing, Menu, ShoppingBag, X } from "lucide-react";
 
 import { navLinks } from "../../constant/constants";
 import SearchInp from "./SearchInp";
@@ -12,6 +12,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { Button } from "../ui/button";
 import { useAuthMeQuery } from "@/store/auth/authApi";
+import { LogIn } from "lucide-react";
 
 export default function NavBar() {
   const [open, setOpen] = useState(false);
@@ -34,18 +35,22 @@ export default function NavBar() {
   }, []);
   return (
     <header
-      className="fixed top-0 z-[999] w-full h-20
+      className="fixed top-0 z-[999]  h-16 lg:h-20
       flex items-center justify-between 
-      text-white px-4 md:px-8 lg:px-16 xl:px-28 2xl:px-56
-       bg-black/40 backdrop-blur-sm"
+      text-white w-full
+       bg-black/20 backdrop-blur-sm px-12"
       ref={navRef}
     >
-      <Link href="/" className="text-[32px] font-bold tracking-wide">
-        <span className="text-violet-500">E</span>-App
+      <Link
+        href="/"
+        className="text-[24px] lg:text-[29px] font-bold tracking-wide flex items-center "
+      >
+        <ShoppingBag className="mr-2" color="white" size={21} />
+        <span className="text-violet-500">E</span>-app
       </Link>
 
       <nav
-        className={`${open ? "hidden" : "hidden md:flex"}  gap-6 text-[16px] font-medium capitalize`}
+        className={`${open ? "hidden" : "hidden md:flex"}  gap-6 text-[14px] lg:text-[16px] font-medium capitalize`}
       >
         {navLinks.map((link) => (
           <Link
@@ -77,8 +82,9 @@ export default function NavBar() {
         {user ? (
           <DropMenu user={user} />
         ) : (
-          <Button className="bg-violet-900 hover:bg-violet-700 ">
+          <Button size="sm" className="bg-violet-900 hover:bg-violet-700  flex">
             <Link href="/login">Login</Link>
+            <LogIn size={21} />
           </Button>
         )}
       </div>

@@ -1,7 +1,6 @@
 "use client";
 
 import { Trash2 } from "lucide-react";
-import { Button } from "../ui/button";
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
@@ -19,7 +18,7 @@ export default function Cart() {
   });
   const [addToCart] = useAddToCartMutation();
   const [removeFromCart] = useRemoveFromCartMutation();
-  //@ts-ignore 
+  //@ts-ignore
   const items = data?.data?.items || [];
 
   const handleQtyChange = async (id: string, qty: number) => {
@@ -84,12 +83,6 @@ export default function Cart() {
         >
           View my cart ({items.length})
         </Link>
-        <Button
-          className="bg-violet-800 hover:bg-violet-700 transition duration-200"
-          size="lg"
-        >
-          Checkout
-        </Button>
       </div>
     </div>
   );

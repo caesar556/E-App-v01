@@ -6,11 +6,21 @@ import { Button } from "@/components/ui/button";
 import { ShoppingCart, Star } from "lucide-react";
 import { useAddToCartMutation } from "@/store/features/cartApi";
 import { toast } from "sonner";
+import { useAppSelector } from "@/hooks/hooks";
+import { useRouter } from "next/navigation";
 
 export default function ProductCard({ product }) {
+  const { user } = useAppSelector((state) => state.auth);
+  const router = useRouter();
+
   const [addToCart] = useAddToCartMutation();
 
   const handleAdd = async () => {
+    if (!user) {
+      toast.error("Please login to add to cart");
+      router.push("/login");
+      return;
+    }
     await addToCart({ productId: product._id, quantity: 1 }).unwrap();
     toast.success("Product added to cart");
   };
