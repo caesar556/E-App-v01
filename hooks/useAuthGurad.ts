@@ -38,6 +38,6 @@ export function useAuthGuard(redirectTo = "/login") {
     router,
     redirectTo,
   ]);
-
+  // @ts-ignore 
   return { user: data?.data?.user, isLoading };
 }
