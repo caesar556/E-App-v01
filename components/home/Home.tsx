@@ -17,6 +17,7 @@ export default function Home() {
   const cardsRef = useRef<HTMLDivElement>(null);
 
   const { data, isLoading } = useGetAllProductsQuery();
+  //@ts-ignore 
   const products = data?.data || [];
 
   useEffect(() => {

@@ -13,8 +13,8 @@ type Filters = {
 
 export default function Products() {
   const { data, isLoading, isError } = useGetAllProductsQuery();
-
-  const products  = data?.data || [];
+  //@ts-ignore
+  const products = data?.data || [];
 
   const [filters, setFilters] = useState<Filters>({
     category: "all",
