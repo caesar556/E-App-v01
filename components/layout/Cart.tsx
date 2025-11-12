@@ -10,13 +10,17 @@ import {
   useAddToCartMutation,
   useRemoveFromCartMutation,
 } from "@/store/features/cartApi";
+import { useAppSelector } from "@/hooks/hooks";
 
 export default function Cart() {
-  const { data } = useGetCartQuery();
+  const { user } = useAppSelector((state) => state.auth);
+  const { data } = useGetCartQuery(undefined, {
+    skip: !user,
+  });
   const [addToCart] = useAddToCartMutation();
   const [removeFromCart] = useRemoveFromCartMutation();
-
-  const items = data?.data?.items;
+  //@ts-ignore 
+  const items = data?.data?.items || [];
 
   const handleQtyChange = async (id: string, qty: number) => {
     await addToCart({ productId: id, quantity: qty });

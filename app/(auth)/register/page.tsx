@@ -27,10 +27,14 @@ import { toast } from "sonner";
 import { useRegisterMutation } from "@/store/auth/authApi";
 import * as z from "zod";
 import { useRouter } from "next/navigation";
+import { setUser } from "@/store/features/auhSlice";
+import { useAppDispatch } from "@/hooks/hooks";
 
 export default function Register() {
   const [register, { isLoading }] = useRegisterMutation();
+  const dispatch = useAppDispatch();
   const router = useRouter();
+
   const {
     control,
     handleSubmit,
@@ -49,6 +53,9 @@ export default function Register() {
   const onSubmit = async (data: z.infer<typeof registerSchema>) => {
     try {
       const res = await register(data).unwrap();
+      const user = res.data.user;
+
+      dispatch(setUser(user));
       toast.success("Account created successfully");
       reset();
       router.push("/login");

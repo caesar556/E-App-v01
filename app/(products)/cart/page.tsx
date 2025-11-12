@@ -12,12 +12,17 @@ import {
   useRemoveFromCartMutation,
 } from "@/store/features/cartApi";
 import { Spinner } from "@/components/ui/spinner";
+import { useAppSelector } from "@/hooks/hooks";
 
 export default function CartPage() {
-  const { data, isLoading, isError } = useGetCartQuery();
+  const { user } = useAppSelector((state) => state.auth);
+  const { data, isLoading, isError } = useGetCartQuery(undefined, {
+    skip: !user
+  });
+  
   const [addToCart] = useAddToCartMutation();
   const [removeFromCart] = useRemoveFromCartMutation();
-
+  //@ts-ignore
   const cart = data?.data?.items || [];
 
   const totalPrice = cart.reduce(

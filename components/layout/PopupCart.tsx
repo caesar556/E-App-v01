@@ -11,6 +11,7 @@ import { useGetCartQuery } from "@/store/features/cartApi";
 
 export default function PopupCart() {
   const { data, isLoading } = useGetCartQuery();
+  //@ts-ignore
   const items = data?.data.items || [];
 
   return (

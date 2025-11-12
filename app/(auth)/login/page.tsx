@@ -27,9 +27,12 @@ import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
 import { useLoginMutation } from "@/store/auth/authApi";
+import { useAppDispatch } from "@/hooks/hooks";
+import { setUser } from "@/store/features/auhSlice";
 
 export default function Login() {
   const [login, { isLoading }] = useLoginMutation();
+  const dispatch = useAppDispatch();
   const router = useRouter();
   const {
     control,
@@ -44,9 +47,13 @@ export default function Login() {
     },
   });
 
-  const onSubmit = (data: z.infer<typeof loginSchema>) => {
+  const onSubmit = async (data: z.infer<typeof loginSchema>) => {
     try {
-      const res = login(data).unwrap();
+      const res = await login(data).unwrap();
+
+      const user = res.data.user;
+      console.log(user);
+      dispatch(setUser(user));
       toast.success("Login successfully");
       reset();
       router.push("/");
