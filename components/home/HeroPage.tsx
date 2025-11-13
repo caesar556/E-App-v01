@@ -6,6 +6,7 @@ import { SplitText } from "gsap/all";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useRef } from "react";
+import { Book, ArrowRight } from 'lucide-react';
 
 gsap.registerPlugin(SplitText);
 
@@ -95,11 +96,13 @@ export default function HeroPage() {
         </p>
 
         <div ref={buttonsRef} className="mt-10 flex gap-6 text-white">
-          <Button size="lg" className="bg-violet-800 hover:bg-violet-700">
+          <Button size="lg" className="bg-violet-800 hover:bg-violet-700 flex rounded-lg">
             Shop Now
+            <Book />
           </Button>
-          <Button variant="ghost" className="hover:bg-violet-700">
+          <Button variant="ghost" className="hover:bg-violet-700 flex">
             Learn more
+            <ArrowRight />
           </Button>
         </div>
       </div>

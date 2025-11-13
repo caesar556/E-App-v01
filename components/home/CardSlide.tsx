@@ -31,7 +31,7 @@ export default function CardSlide({ title, src, discount, buttonTitle }) {
           end: "bottom 10%",
           toggleActions: "play reverse play reverse",
         },
-      }
+      },
     );
 
     gsap.fromTo(
@@ -49,7 +49,7 @@ export default function CardSlide({ title, src, discount, buttonTitle }) {
           end: "bottom 10%",
           toggleActions: "play reverse play reverse",
         },
-      }
+      },
     );
 
     const splitTitle = new SplitText(titleRef.current, { type: "lines" });
@@ -93,7 +93,6 @@ export default function CardSlide({ title, src, discount, buttonTitle }) {
                  max-w-[1200px] w-[95%] sm:w-[90%] md:w-[85%] lg:w-[80%] mx-auto overflow-hidden
                  shadow-[0_10px_40px_-10px_rgba(139,92,246,0.4)] transition-shadow duration-500 hover:shadow-[0_15px_60px_-10px_rgba(139,92,246,0.6)]"
     >
-      {/* النصوص */}
       <div className="flex flex-col justify-center px-4 sm:px-6 md:px-10 py-6 sm:py-8 md:py-12 w-[62%] sm:w-[60%] md:w-[55%] lg:w-[50%]">
         <p ref={discountRef} className="text-violet-800 font-medium mb-2">
           {discount}
@@ -106,7 +105,10 @@ export default function CardSlide({ title, src, discount, buttonTitle }) {
           {title}
         </h2>
 
-        <div className="mt-4 sm:mt-6 flex flex-wrap gap-3 sm:gap-4 items-center">
+        <div
+          ref={titleRef}
+          className="mt-4 sm:mt-6 flex flex-wrap gap-3 sm:gap-4 items-center"
+        >
           <Button
             size="sm"
             className="rounded-lg font-medium bg-violet-800 hover:bg-violet-700"

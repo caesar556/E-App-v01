@@ -3,6 +3,7 @@ import Banner from "./Banner";
 import Subscribe from "./Subscribe";
 import HeroPage from "./HeroPage";
 import AboutSection from "./AboutSection"; 
+import FeaturesSection from "./FeaturesSection"; 
 import Home from "./Home";
 
 export {
@@ -11,5 +12,6 @@ export {
   Banner,
   Subscribe,
   AboutSection,
-  Home
+  Home,
+  FeaturesSection
 }

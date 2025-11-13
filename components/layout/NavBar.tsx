@@ -77,14 +77,14 @@ export default function NavBar() {
           >
             4
           </span>
-          <BellRing size={21} />
+          <BellRing size={20} />
         </button>
         {user ? (
           <DropMenu user={user} />
         ) : (
           <Button size="sm" className="bg-violet-900 hover:bg-violet-700  flex">
             <Link href="/login">Login</Link>
-            <LogIn size={21} />
+            <LogIn size={20} />
           </Button>
         )}
       </div>

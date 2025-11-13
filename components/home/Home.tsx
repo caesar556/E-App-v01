@@ -1,6 +1,6 @@
 "use client";
 
-import { CarouselPage, Banner, Subscribe, HeroPage, AboutSection } from "./";
+import { CarouselPage, Banner, Subscribe, HeroPage, AboutSection, FeaturesSection } from "./";
 import { useRef, useEffect } from "react";
 
 import gsap from "gsap";
@@ -74,6 +74,7 @@ export default function Home({ products }) {
       </div>
 
       <AboutSection />
+      <FeaturesSection />
       <Banner />
       <Subscribe />
     </section>

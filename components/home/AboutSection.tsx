@@ -78,7 +78,7 @@ export default function AboutSection() {
         <div className="grid md:grid-cols-2 gap-24 items-center">
           <Card className="about-card bg-[#12121a] border-violet-700/40 shadow-violet-900/30 shadow-xl">
             <CardHeader>
-              <CardTitle className="text-3xl font-bold text-violet-400 about-text">
+              <CardTitle className="text-xl lg:text-3xl font-bold text-violet-400 about-text">
                 E-App Marketplace
               </CardTitle>
             </CardHeader>
@@ -87,11 +87,6 @@ export default function AboutSection() {
               <p className="about-text">
                 E-App is your next-generation e-commerce platform — fast,
                 secure, and built to give users a smooth shopping experience.
-              </p>
-
-              <p className="text-gray-400 about-text">
-                From customers to sellers and admins — everyone gets powerful
-                tools for managing products, orders, wallets & sales.
               </p>
 
               <Button className="about-btn mt-4 bg-violet-600 hover:bg-violet-700 text-white font-medium">
