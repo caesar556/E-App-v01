@@ -10,6 +10,7 @@ import {
   useRemoveFromCartMutation,
 } from "@/store/features/cartApi";
 import { useAppSelector } from "@/hooks/hooks";
+import { toast } from "sonner";
 
 export default function Cart() {
   const { user } = useAppSelector((state) => state.auth);
@@ -25,7 +26,14 @@ export default function Cart() {
     await addToCart({ productId: id, quantity: qty });
   };
   const handleRemove = async (id: string) => {
-    await removeFromCart(id);
+    if (confirm("Are you sure you want to remove this item from your cart?")) {
+      try {
+        await removeFromCart(id).unwrap();
+        toast.success("Item removed from cart");
+      } catch (error) {
+        toast.error("Failed to remove item");
+      }
+    }
   };
 
   return (
@@ -57,10 +65,12 @@ export default function Cart() {
               <Input
                 type="number"
                 min="1"
+                max="10"
                 value={item.quantity}
                 onChange={(e) => {
                   let value = Number(e.target.value);
                   if (!value || value < 1) value = 1;
+                  if (value > 10) value = 10;
                   handleQtyChange(item.product._id, value);
                 }}
                 className="h-8 w-16 text-center bg-slate-800 border-violet-700 text-gray-300"

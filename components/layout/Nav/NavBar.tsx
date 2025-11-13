@@ -4,13 +4,13 @@ import Link from "next/link";
 import { useState, useRef } from "react";
 import { BellRing, Menu, ShoppingBag, X } from "lucide-react";
 
-import { navLinks } from "../../constant/constants";
-import SearchInp from "./SearchInp";
-import DropMenu from "./DropMenu";
-import PopupCart from "./PopupCart";
+import { navLinks } from "@/constant/constants";
+import SearchInp from "../ui/SearchInp";
+import DropMenu from "../ui/DropMenu";
+import PopupCart from "../Cart/PopupCart";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import { useAuthMeQuery } from "@/store/auth/authApi";
 import { LogIn } from "lucide-react";
 

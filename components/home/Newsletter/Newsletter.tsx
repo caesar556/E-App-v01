@@ -3,54 +3,15 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/all";
-import { useGSAP } from "@gsap/react";
+import { useNewsletterGsap } from "./newsletter.gsap";
 
-gsap.registerPlugin(ScrollTrigger);
-
-export default function Subscribe() {
+export default function Newsletter() {
   const sectionRef = useRef(null);
   const titleRef = useRef(null);
   const descRef = useRef(null);
   const formRef = useRef(null);
 
-  useGSAP(() => {
-    const section = sectionRef.current;
-
-    gsap.fromTo(
-      section,
-      { opacity: 0.3, x: 100 },
-      {
-        opacity: 1,
-        x: 0,
-        duration: 1,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: section,
-          start: "top 85%",
-          end: "top 30%",
-          scrub: true,
-          toggleActions: "play reverse play reverse",
-        },
-      },
-    );
-
-    gsap.from([titleRef.current, descRef.current, formRef.current], {
-      opacity: 0,
-      x: -140,
-      stagger: 0.6,
-      duration: 0.8,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: section,
-        start: "top 80%",
-        end: "top 30%",
-        scrub: true,
-        toggleActions: "play reverse play reverse",
-      },
-    });
-  }, []);
+  useNewsletterGsap({ sectionRef, titleRef, descRef, formRef });
 
   return (
     <div

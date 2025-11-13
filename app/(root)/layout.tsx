@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { NavBar, Footer } from "../../components/layout/";
+import { NavBar, Footer } from "@/components/layout";
 
 export const metadata = {
   title: "E-App | Home",

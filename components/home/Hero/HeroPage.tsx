@@ -2,13 +2,9 @@
 
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { SplitText } from "gsap/all";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
+import { useHeroGsap } from "./hero.gsap";
 import { useRef } from "react";
-import { Book, ArrowRight } from 'lucide-react';
-
-gsap.registerPlugin(SplitText);
+import { Book, ArrowRight } from "lucide-react";
 
 export default function HeroPage() {
   const titleRef = useRef(null);
@@ -16,56 +12,7 @@ export default function HeroPage() {
   const imgWrapperRef = useRef(null);
   const buttonsRef = useRef(null);
 
-  useGSAP(() => {
-    const splitHero = new SplitText(titleRef.current, { type: "chars, words" });
-    const splitSubtitle = new SplitText(subtitleRef.current, {
-      type: "lines, words",
-    });
-
-    const tl = gsap.timeline({ delay: 0.4 });
-
-    tl.fromTo(
-      imgWrapperRef.current,
-      { opacity: 0, scale: 1.1 },
-      { opacity: 1, scale: 1, duration: 1.5, ease: "power2.out" },
-    );
-
-    tl.from(
-      splitHero.chars,
-      {
-        x: 120,
-        opacity: 0,
-        duration: 1,
-        ease: "power4.out",
-        stagger: 0.05,
-      },
-      "-=1.0", 
-    );
-
-    tl.from(
-      splitSubtitle.lines,
-      {
-        y: 100,
-        opacity: 0,
-        duration: 1,
-        stagger: 0.1,
-        ease: "power3.out",
-      },
-      "-=0.6",
-    );
-
-    tl.from(
-      buttonsRef.current.children,
-      {
-        opacity: 0,
-        y: 40,
-        stagger: 0.15,
-        duration: 0.6,
-        ease: "power3.out",
-      },
-      "-=0.5",
-    );
-  }, []);
+  useHeroGsap({ titleRef, subtitleRef, imgWrapperRef, buttonsRef });
 
   return (
     <section className="relative h-dvh w-full overflow-hidden bg-black">
@@ -96,7 +43,10 @@ export default function HeroPage() {
         </p>
 
         <div ref={buttonsRef} className="mt-10 flex gap-6 text-white">
-          <Button size="lg" className="bg-violet-800 hover:bg-violet-700 flex rounded-lg">
+          <Button
+            size="lg"
+            className="bg-violet-800 hover:bg-violet-700 flex rounded-lg"
+          >
             Shop Now
             <Book />
           </Button>

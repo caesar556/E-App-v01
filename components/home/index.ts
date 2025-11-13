@@ -1,17 +1,17 @@
-import CarouselPage from "./CarouselPage";
-import Banner from "./Banner";
-import Subscribe from "./Subscribe";
-import HeroPage from "./HeroPage";
-import AboutSection from "./AboutSection"; 
-import FeaturesSection from "./FeaturesSection"; 
-import Home from "./Home";
+import Banner from "./Banner/Banner";
+import Newsletter from "./Newsletter/Newsletter";
+import Hero from "./Hero/HeroPage";
+import FeaturedProducts from "./FeaturedProducts/FeaturedProducts";
+import AboutSection from "./About/AboutSection";
+import Carousel from "./Carousel/CarouselPage";
+import FeaturesSection from "./Features/FeaturesSection";
 
 export {
-  HeroPage,
-  CarouselPage,
   Banner,
-  Subscribe,
+  Newsletter,
+  Hero,
+  FeaturedProducts,
   AboutSection,
-  Home,
-  FeaturesSection
-}
+  Carousel,
+  FeaturesSection,
+};

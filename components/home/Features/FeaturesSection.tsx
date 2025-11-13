@@ -1,9 +1,7 @@
 "use client";
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger, SplitText } from "gsap/all";
 
-gsap.registerPlugin(ScrollTrigger, SplitText);
+import { useRef } from "react";
+import { useFeaturesGsap } from "./features.gsap";
 
 const cardFeature = [
   {
@@ -28,74 +26,7 @@ export default function FeaturesSection() {
   const titleRef = useRef<HTMLHeadingElement | null>(null);
   const descRef = useRef<HTMLParagraphElement | null>(null);
 
-  useEffect(() => {
-    if (!cardsRef.current) return;
-
-    const titleSplit = new SplitText(titleRef.current, { type: "words" });
-    const descSplit = new SplitText(descRef.current, { type: "lines" });
-
-    gsap.from(titleSplit.words, {
-      opacity: 0,
-      y: 80,
-      rotationX: -90,
-      stagger: 0.08,
-      ease: "power2.inOut",
-      duration: 0.8,
-      scrollTrigger: {
-        trigger: titleRef.current,
-        start: "top 75%",
-        end: "bottom 10%",
-        toggleActions: "play reverse play reverse",
-      },
-    });
-
-    gsap.from(descSplit.lines, {
-      opacity: 0,
-      y: -80,
-      skewY: 5,
-      stagger: 0.3,
-      ease: "power3.out",
-      duration: 0.8,
-      scrollTrigger: {
-        trigger: descRef.current,
-        start: "top 75%",
-        end: "bottom 10%",
-        toggleActions: "play reverse play reverse",
-      },
-    });
-
-    cardsRef.current.forEach((card, index) => {
-      gsap.fromTo(
-        card,
-        {
-          opacity: 0,
-          y: 100,
-          scale: 0.9,
-          rotateY: 40,
-        },
-        {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          rotateY: 0,
-          duration: 0.8,
-          ease: "power3.inOut",
-          scrollTrigger: {
-            trigger: card,
-            start: "top 75%",
-            end: "bottom 60%",
-          },
-          delay: index * 0.3,
-        },
-      );
-    });
-
-    return () => {
-      ScrollTrigger.getAll().forEach((t) => t.kill());
-      titleSplit.revert();
-      descSplit.revert();
-    };
-  }, []);
+  useFeaturesGsap({ titleRef, cardsRef, descRef });
 
   return (
     <section className="max-w-7xl mx-auto px-6 py-16 text-white">
@@ -114,8 +45,9 @@ export default function FeaturesSection() {
         {cardFeature.map((item, i) => (
           <div
             key={item.id}
-            //@ts-ignore 
-            ref={(el) => (cardsRef.current[i] = el!)}
+            ref={(el) => {
+              if (el) cardsRef.current[i] = el;
+            }}
             className="rounded-xl border border-gray-800 bg-black/80 p-6 shadow-lg hover:shadow-violet-600/20 transition"
           >
             <div className="inline-flex rounded-lg bg-violet-700 p-3">

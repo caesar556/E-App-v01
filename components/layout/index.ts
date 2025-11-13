@@ -1,7 +1,8 @@
-import NavBar from "./NavBar";
-import Footer from "./Footer";
+import NavBar from "./Nav/NavBar";
+import Footer from "./Footer/Footer";
 
-export { 
+
+export {
   NavBar,
   Footer
-};
+}

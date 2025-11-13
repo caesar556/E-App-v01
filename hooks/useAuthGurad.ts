@@ -1,4 +1,4 @@
-"use client"; 
+"use client";
 import { useEffect, useState } from "react";
 import { useAuthMeQuery, useRefreshTokenMutation } from "@/store/auth/authApi";
 import { useRouter } from "next/navigation";
@@ -38,6 +38,9 @@ export function useAuthGuard(redirectTo = "/login") {
     router,
     redirectTo,
   ]);
-  // @ts-ignore 
-  return { user: data?.data?.user, isLoading };
+  return {
+    //@ts-ignore
+    user: data?.data?.user ?? null,
+    isLoading,
+  };
 }
