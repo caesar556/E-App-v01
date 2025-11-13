@@ -4,7 +4,11 @@ import { ScrollTrigger } from "gsap/all";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export const useFeaturedProductsAnimation = ({ sectionRef, titleRef, cardsRef }) => {
+export const useFeaturedProductsAnimation = ({
+  sectionRef,
+  titleRef,
+  cardsRef,
+}) => {
   useGSAP(() => {
     const section = sectionRef.current;
     const cards = gsap.utils.toArray(cardsRef.current?.children);
@@ -22,6 +26,7 @@ export const useFeaturedProductsAnimation = ({ sectionRef, titleRef, cardsRef })
     });
 
     const cardAnimations = cards.map((card, index) => {
+      //@ts-ignore
       return gsap.from(card, {
         opacity: 0,
         y: 100,
@@ -39,7 +44,7 @@ export const useFeaturedProductsAnimation = ({ sectionRef, titleRef, cardsRef })
 
     return () => {
       tlTitle.scrollTrigger?.kill();
-      cardAnimations.forEach(anim => anim.scrollTrigger?.kill());
+      cardAnimations.forEach((anim) => anim.scrollTrigger?.kill());
     };
   }, []);
 };
