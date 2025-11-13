@@ -21,8 +21,12 @@ export default function ProductCard({ product }) {
       router.push("/login");
       return;
     }
-    await addToCart({ productId: product._id, quantity: 1 }).unwrap();
-    toast.success("Product added to cart");
+    try {
+      await addToCart({ productId: product._id, quantity: 1 }).unwrap();
+      toast.success("Product added to cart");
+    } catch (error) {
+      toast.error("Failed to add product to cart");
+    }
   };
 
   return (
