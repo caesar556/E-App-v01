@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { Filter, ProductCard } from "./index";
 import { Spinner } from "@/components/ui/spinner";
 import { useGetAllProductsQuery } from "@/store/products/productsApi";
@@ -20,9 +20,13 @@ export default function Products() {
     page: 1,
   });
 
-  const { data, isLoading, isError } = useGetAllProductsQuery(filters);
+  const { data, isLoading, isError, error } = useGetAllProductsQuery(filters);
 
   const products = data?.data || [];
+
+  const handleFilterChange = useCallback((newFilters: Omit<Filters, 'page'>) => {
+    setFilters((prev) => ({ ...prev, ...newFilters, page: 1 }));
+  }, []);
 
   if (isLoading)
     return (
@@ -31,17 +35,15 @@ export default function Products() {
       </div>
     );
   if (isError)
-    return <p className="text-center py-10 text-red-500">{isError}</p>;
+    return <p className="text-center py-10 text-red-500">
+      {error?.data?.message || "Failed to load products"}
+    </p>;
 
   return (
     <div className="pt-24 mb-16">
       <div className="flex">
         <div className="w-[40%] lg:w-[35%]">
-          <Filter
-            onFilterChange={(newFilters) =>
-              setFilters((prev) => ({ ...prev, ...newFilters, page: 1 }))
-            }
-          />
+          <Filter onFilterChange={handleFilterChange} />
         </div>
         {!isLoading && !isError && (
           <div className="flex-1">

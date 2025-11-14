@@ -15,22 +15,22 @@ import { Slider } from "@/components/ui/slider";
 
 type Filters = {
   category: string;
-  value: [number, number];
+  range: [number, number];
   sort: string;
 };
 
 type FilterProps = {
-  onFilterChange: (filters: Filters) => void; // ← هنا التعديل
+  onFilterChange: (filters: Filters) => void;
 };
 
 export default function Filter({ onFilterChange }: FilterProps) {
-  const [value, setValue] = useState<[number, number]>([400, 8000]);
+  const [range, setRange] = useState<[number, number]>([400, 8000]);
   const [category, setCategory] = useState<string>("all");
   const [sort, setSort] = useState<string>("");
 
   useEffect(() => {
-    onFilterChange({ category, value, sort });
-  }, [category, value, sort]); // ← شيل onFilterChange
+    onFilterChange({ category, range, sort });
+  }, [category, range, sort, onFilterChange]);
 
   return (
     <section className="flex flex-col gap-6 p-4 max-w-md mx-auto">
@@ -58,16 +58,16 @@ export default function Filter({ onFilterChange }: FilterProps) {
           <FieldDescription>
             Set your budget range ($
             <span className="font-medium text-violet-600">
-              {value[0]}
+              {range[0]}
             </span> -{" "}
-            <span className="font-medium text-violet-600">{value[1]}</span>).
+            <span className="font-medium text-violet-600">{range[1]}</span>).
           </FieldDescription>
           <Slider
-            value={value}
-            onValueChange={(val) => setValue(val as [number, number])}
-            max={1000}
+            value={range}
+            onValueChange={(val) => setRange(val as [number, number])}
+            max={8000}
             min={0}
-            step={10}
+            step={50}
             className="mt-2 bg-slate-600"
           />
         </Field>
