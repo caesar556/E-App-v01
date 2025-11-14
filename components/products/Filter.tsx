@@ -20,7 +20,7 @@ type Filters = {
 };
 
 type FilterProps = {
-  onFilterChange: React.Dispatch<React.SetStateAction<Filters>>;
+  onFilterChange: (filters: Filters) => void; // ← هنا التعديل
 };
 
 export default function Filter({ onFilterChange }: FilterProps) {
@@ -30,7 +30,7 @@ export default function Filter({ onFilterChange }: FilterProps) {
 
   useEffect(() => {
     onFilterChange({ category, value, sort });
-  }, [category, value, sort, onFilterChange]);
+  }, [category, value, sort]); // ← شيل onFilterChange
 
   return (
     <section className="flex flex-col gap-6 p-4 max-w-md mx-auto">
@@ -69,7 +69,6 @@ export default function Filter({ onFilterChange }: FilterProps) {
             min={0}
             step={10}
             className="mt-2 bg-slate-600"
-            aria-label="Price Range"
           />
         </Field>
       </div>

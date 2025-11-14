@@ -23,11 +23,16 @@ export const productsApi = apiSlice.injectEndpoints({
           limit: 10,
         },
       }),
-      serializeQueryArgs: ({ endpointName }) => endpointName,
-      merge: (currentCache, newItems) => newItems,
-      forceRefetch({ currentArg, previousArg }) {
-        return currentArg !== previousArg;
-      },
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.data.map(({ _id }) => ({
+                type: "Product" as const,
+                id: _id,
+              })),
+              { type: "Product", id: "LIST" },
+            ]
+          : [{ type: "Product", id: "LIST" }],
     }),
   }),
 });

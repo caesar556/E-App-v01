@@ -9,6 +9,7 @@ type Filters = {
   category: string;
   range: [number, number];
   sort: string;
+  page: number;
 };
 
 export default function Products() {
@@ -16,7 +17,6 @@ export default function Products() {
     category: "all",
     range: [400, 8000],
     sort: "",
-    //@ts-ignore
     page: 1,
   });
 
