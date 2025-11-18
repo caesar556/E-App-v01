@@ -16,6 +16,9 @@ const nextConfig = {
         hostname: "cdn.builder.io",
       },
     ],
+    dangerouslyAllowSVG: true,
+    contentDispositionType: "attachment",
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
 };
 
