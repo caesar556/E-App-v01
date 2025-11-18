@@ -29,6 +29,7 @@ import * as z from "zod";
 import { useLoginMutation } from "@/store/auth/authApi";
 import { useAppDispatch } from "@/hooks/hooks";
 import { setUser } from "@/store/features/auhSlice";
+import Oauth from "@/components/auth/Oauth";
 
 export default function Login() {
   const [login, { isLoading }] = useLoginMutation();
@@ -129,6 +130,7 @@ export default function Login() {
               </Link>
             </div>
           </form>
+          <Oauth />
         </CardContent>
       </Card>
     </div>

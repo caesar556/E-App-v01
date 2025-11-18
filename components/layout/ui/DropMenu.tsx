@@ -14,7 +14,7 @@ import {
   Settings,
   LogOut,
   Headset,
-  GithubIcon,
+  ShoppingBag,
 } from "lucide-react";
 
 import Image from "next/image";
@@ -46,6 +46,14 @@ export default function DropMenu({ user }) {
               </DropdownMenuShortcut>
             </DropdownMenuItem>
           </Link>
+          <Link href="/orders">
+            <DropdownMenuItem>
+              Orders
+              <DropdownMenuShortcut>
+                <ShoppingBag />
+              </DropdownMenuShortcut>
+            </DropdownMenuItem>
+          </Link>
           <DropdownMenuItem>
             Settings
             <DropdownMenuShortcut>
@@ -54,12 +62,6 @@ export default function DropMenu({ user }) {
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          GitHub
-          <DropdownMenuShortcut>
-            <GithubIcon />
-          </DropdownMenuShortcut>
-        </DropdownMenuItem>
         <DropdownMenuItem>
           Support
           <DropdownMenuShortcut>

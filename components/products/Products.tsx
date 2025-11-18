@@ -1,9 +1,11 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import { Filter, ProductCard } from "./index";
+import { useState, useEffect } from "react";
 import { Spinner } from "@/components/ui/spinner";
 import { useGetAllProductsQuery } from "@/store/products/productsApi";
+import Filter from "./Filter";
+import ProductCard from "./ProductCard";
+import { Button } from "@/components/ui/button";
 
 type Filters = {
   category: string;
@@ -15,48 +17,109 @@ type Filters = {
 export default function Products() {
   const [filters, setFilters] = useState<Filters>({
     category: "all",
-    range: [400, 8000],
-    sort: "",
+    range: [0, 8000],
+    sort: "newest",
     page: 1,
   });
 
-  const { data, isLoading, isError, error } = useGetAllProductsQuery(filters);
+  const [debouncedRange, setDebouncedRange] = useState(filters.range);
+
+  const { data, isLoading, isError, error, isFetching } =
+    useGetAllProductsQuery({
+      ...filters,
+      range: debouncedRange,
+    });
 
   const products = data?.data || [];
+  const pagination = data?.pagination;
 
-  const handleFilterChange = useCallback((newFilters: Omit<Filters, 'page'>) => {
-    setFilters((prev) => ({ ...prev, ...newFilters, page: 1 }));
-  }, []);
+  const handleFilterChange = (key: keyof Filters, value: any) => {
+    setFilters((prev) => ({
+      ...prev,
+      [key]: value,
+      page: 1,
+    }));
+  };
 
-  if (isLoading)
-    return (
-      <div className="flex items-center justify-center h-dvh">
-        <Spinner className="size-8 text-purple-500" />
-      </div>
-    );
-  if (isError)
-    return <p className="text-center py-10 text-red-500">
-      {error?.data?.message || "Failed to load products"}
-    </p>;
+  const handlePageChange = (newPage: number) => {
+    setFilters((prev) => ({ ...prev, page: newPage }));
+  };
 
   return (
-    <div className="pt-24 mb-16">
-      <div className="flex">
-        <div className="w-[40%] lg:w-[35%]">
-          <Filter onFilterChange={handleFilterChange} />
-        </div>
-        {!isLoading && !isError && (
-          <div className="flex-1">
-            <p className="mb-6 font-medium text-center text-lg">
-              Showing {products.length} products
-            </p>
-            <div className="flex gap-6 flex-wrap px-6 justify-center">
-              {products.map((product) => (
-                <ProductCard key={product._id} product={product} />
-              ))}
-            </div>
+    <div className="pt-24 mb-16 min-h-dvh ">
+      <div className="container mx-auto px-4">
+        <div className="flex flex-col lg:flex-row gap-8">
+          <div className="w-full lg:w-[30%] flex-shrink-0">
+            <Filter filters={filters} onChange={handleFilterChange} />
           </div>
-        )}
+
+          <div className="flex-1">
+            {(isLoading || isFetching) && (
+              <div className="flex flex-col items-center justify-center h-64">
+                <Spinner className="size-10 text-purple-500 mb-4" />
+                <p className="text-gray-600">
+                  {isLoading ? "Loading products..." : "Updating products..."}
+                </p>
+              </div>
+            )}
+
+            {isError && (
+              <div className="text-center py-10">
+                <div className="bg-red-50 border border-red-200 rounded-lg p-6 max-w-md mx-auto">
+                  <p className="text-red-600 font-medium mb-2">
+                    Failed to load products
+                  </p>
+                  <p className="text-red-500 text-sm">
+                    {error?.data?.message || "Please try again later"}
+                  </p>
+                  <Button
+                    onClick={() => window.location.reload()}
+                    className="mt-4 bg-red-600 hover:bg-red-700"
+                  >
+                    Retry
+                  </Button>
+                </div>
+              </div>
+            )}
+
+            {!isLoading && !isError && (
+              <>
+                <div className="mb-6 p-4 bg-black/80 rounded-lg shadow-sm">
+                  <p className="text-lg font-medium text-gray-300">
+                    Showing {products.length} of {pagination?.total || 0}{" "}
+                    products
+                  </p>
+                  {pagination && (
+                    <p className="text-sm text-gray-400 mt-1">
+                      Page {pagination.currentPage} of {pagination.totalPages}
+                    </p>
+                  )}
+                </div>
+
+                {products.length > 0 ? (
+                  <>
+                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-8">
+                      {products.map((product) => (
+                        <ProductCard key={product._id} product={product} />
+                      ))}
+                    </div>
+                  </>
+                ) : (
+                  <div className="text-center mt-16 py-16">
+                    <div className="bg-black/80 rounded-lg p-8 max-w-md mx-auto shadow-lg">
+                      <p className="text-gray-300 text-lg mb-4">
+                        No products found
+                      </p>
+                      <p className="text-gray-400 text-sm">
+                        Try adjusting your filters to see more results.
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
