@@ -71,7 +71,10 @@ export default function Products() {
                     Failed to load products
                   </p>
                   <p className="text-red-500 text-sm">
-                    {error?.data?.message || "Please try again later"}
+                    {
+                      //@ts-ignore
+                      error?.data?.message || "Please try again later"
+                    }
                   </p>
                   <Button
                     onClick={() => window.location.reload()}
