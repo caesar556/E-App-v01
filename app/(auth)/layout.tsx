@@ -23,7 +23,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         />
       </div>
 
-      <div className="relative z-10  w-screen   flex justify-center pt-16">
+      <div className="relative z-10  w-screen   flex justify-center pt-4 ">
         {children}
       </div>
     </section>

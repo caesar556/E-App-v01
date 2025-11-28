@@ -11,12 +11,7 @@ import {
 } from "@/components/ui/select";
 import { Field, FieldDescription, FieldTitle } from "@/components/ui/field";
 import { Slider } from "@/components/ui/slider";
-
-type Filters = {
-  category: string;
-  range: [number, number];
-  sort: string;
-};
+import { Filters } from "@/types/product";
 
 type FilterProps = {
   filters: Filters;
@@ -52,8 +47,7 @@ export default function Filter({ filters, onChange }: FilterProps) {
         <Field>
           <FieldTitle>Price Range</FieldTitle>
           <FieldDescription className="text-sm text-violet-600">
-            ${filters.range[0].toLocaleString()} - $
-            {filters.range[1].toLocaleString()}
+            ${filters.range[0]} - ${filters.range[1]}
           </FieldDescription>
 
           <Slider
@@ -63,7 +57,7 @@ export default function Filter({ filters, onChange }: FilterProps) {
             }
             max={8000}
             min={0}
-            step={50}
+            step={100}
             className="mt-4"
           />
 

@@ -21,7 +21,7 @@ import Image from "next/image";
 
 export default function DropMenu({ user }) {
   return (
-    <DropdownMenu>
+    <DropdownMenu >
       <DropdownMenuTrigger asChild>
         <Image
           src={user.data.user.profileImage}
@@ -33,7 +33,7 @@ export default function DropMenu({ user }) {
       </DropdownMenuTrigger>
 
       <DropdownMenuContent
-        className="w-56 bg-black/80  text-white mt-8 "
+        className="w-56 bg-black/80 shadow-lg  rounded-lg  text-white mt-8 border-none"
         align="center"
       >
         <DropdownMenuLabel>manage Account</DropdownMenuLabel>
@@ -61,15 +61,16 @@ export default function DropMenu({ user }) {
             </DropdownMenuShortcut>
           </DropdownMenuItem>
         </DropdownMenuGroup>
-        <DropdownMenuSeparator />
+        <DropdownMenuSeparator className="border border-gray-700" />
         <DropdownMenuItem>
           Support
           <DropdownMenuShortcut>
             <Headset />
           </DropdownMenuShortcut>
         </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem className="bg-red-700">
+        <DropdownMenuSeparator className="border border-gray-700 mb-2" />
+        <DropdownMenuItem className="text-red-600">
+
           Log out
           <DropdownMenuShortcut>
             <LogOut />

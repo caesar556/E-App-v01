@@ -24,7 +24,7 @@ export type ProductsResponse = {
 };
 
 export type Filters = {
-  category: string;
+  category?: string;
   range: [number, number];
   sort: string;
   page: number;

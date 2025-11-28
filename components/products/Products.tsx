@@ -6,23 +6,24 @@ import { useGetAllProductsQuery } from "@/store/products/productsApi";
 import Filter from "./Filter";
 import ProductCard from "./ProductCard";
 import { Button } from "@/components/ui/button";
-
-type Filters = {
-  category: string;
-  range: [number, number];
-  sort: string;
-  page: number;
-};
+import PaginationApp from "./PaginationApp";
+import { Filters } from "@/types/product";
 
 export default function Products() {
   const [filters, setFilters] = useState<Filters>({
-    category: "all",
     range: [0, 8000],
     sort: "newest",
     page: 1,
   });
 
   const [debouncedRange, setDebouncedRange] = useState(filters.range);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setDebouncedRange(filters.range);
+    }, 400);
+    return () => clearTimeout(timeoutId);
+  }, [filters.range]);
 
   const { data, isLoading, isError, error, isFetching } =
     useGetAllProductsQuery({
@@ -41,8 +42,8 @@ export default function Products() {
     }));
   };
 
-  const handlePageChange = (newPage: number) => {
-    setFilters((prev) => ({ ...prev, page: newPage }));
+  const handlePageChange = (page: number) => {
+    setFilters((prev) => ({ ...prev, page }));
   };
 
   return (
@@ -82,26 +83,23 @@ export default function Products() {
               </div>
             )}
 
-            {!isLoading && !isError && (
+            {!isLoading && !isError && !isFetching && (
               <>
                 <div className="mb-6 p-4 bg-black/80 rounded-lg shadow-sm">
-                  <p className="text-lg font-medium text-gray-300">
-                    Showing {products.length} of {pagination?.total || 0}{" "}
-                    products
+                  <p className="text-lg text-center font-medium text-gray-300">
+                    Showing {products.length} products
                   </p>
-                  {pagination && (
-                    <p className="text-sm text-gray-400 mt-1">
-                      Page {pagination.currentPage} of {pagination.totalPages}
-                    </p>
-                  )}
                 </div>
 
                 {products.length > 0 ? (
                   <>
-                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-6 mb-8">
                       {products.map((product) => (
                         <ProductCard key={product._id} product={product} />
                       ))}
+                    </div>
+                    <div>
+                      <PaginationApp />
                     </div>
                   </>
                 ) : (

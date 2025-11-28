@@ -29,6 +29,7 @@ import * as z from "zod";
 import { useRouter } from "next/navigation";
 import { setUser } from "@/store/features/auhSlice";
 import { useAppDispatch } from "@/hooks/hooks";
+import Oauth from "@/components/auth/Oauth";
 
 export default function Register() {
   const [register, { isLoading }] = useRegisterMutation();
@@ -69,14 +70,14 @@ export default function Register() {
 
   return (
     <div>
-      <Card className="border border-violet-800 bg-black/80 text-white px-8 mx-auto">
+      <Card className=" border-none bg-black/70 text-white px-8 mx-auto">
         <CardHeader className="text-center">
           <CardTitle className="text-4xl">Register</CardTitle>
           <CardDescription>
             Create a new account — register now!
           </CardDescription>
         </CardHeader>
-
+        <Oauth />
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <FieldGroup>

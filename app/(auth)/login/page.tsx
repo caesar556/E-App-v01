@@ -68,12 +68,12 @@ export default function Login() {
 
   return (
     <div className="w-full">
-      <Card className="border border-violet-800 bg-black/80 w-[45%]  text-white px-8 mx-auto">
+      <Card className="border-none shadow-xl bg-black/80 w-[80%] lg:w-[45%]  text-white px-8 mx-auto">
         <CardHeader className="text-center">
           <CardTitle className="text-4xl">Login</CardTitle>
           <CardDescription>Welcome again — login now!</CardDescription>
         </CardHeader>
-
+        <Oauth />
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <FieldGroup>
@@ -130,7 +130,6 @@ export default function Login() {
               </Link>
             </div>
           </form>
-          <Oauth />
         </CardContent>
       </Card>
     </div>
