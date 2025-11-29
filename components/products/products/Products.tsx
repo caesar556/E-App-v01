@@ -1,51 +1,24 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { Spinner } from "@/components/ui/spinner";
-import { useGetAllProductsQuery } from "@/store/products/productsApi";
 import Filter from "./Filter";
 import ProductCard from "./ProductCard";
 import { Button } from "@/components/ui/button";
 import PaginationApp from "./PaginationApp";
-import { Filters } from "@/types/product";
+import { useProductsLogic } from "@/hooks/products/useProduct";
 
 export default function Products() {
-  const [filters, setFilters] = useState<Filters>({
-    range: [0, 8000],
-    sort: "newest",
-    page: 1,
-  });
-
-  const [debouncedRange, setDebouncedRange] = useState(filters.range);
-
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setDebouncedRange(filters.range);
-    }, 400);
-    return () => clearTimeout(timeoutId);
-  }, [filters.range]);
-
-  const { data, isLoading, isError, error, isFetching } =
-    useGetAllProductsQuery({
-      ...filters,
-      range: debouncedRange,
-    });
+  const {
+    filters,
+    handleFilterChange,
+    data,
+    isError,
+    isFetching,
+    isLoading,
+    error,
+  } = useProductsLogic();
 
   const products = data?.data || [];
-  const pagination = data?.pagination;
-
-  const handleFilterChange = (key: keyof Filters, value: any) => {
-    setFilters((prev) => ({
-      ...prev,
-      [key]: value,
-      page: 1,
-    }));
-  };
-
-  const handlePageChange = (page: number) => {
-    setFilters((prev) => ({ ...prev, page }));
-  };
-
   return (
     <div className="pt-24 mb-16 min-h-dvh ">
       <div className="container mx-auto px-4">

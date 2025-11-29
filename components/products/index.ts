@@ -1,6 +1,6 @@
-import Filter from "./Filter";
-import ProductCard from "./ProductCard";
-import Products from "./Products";
+import Filter from "./products/Filter";
+import ProductCard from "./products/ProductCard";
+import Products from "./products/Products";
 
 export {
   Filter,
