@@ -1,7 +1,5 @@
 "use client";
 
-import { StatsCard, SalesChart } from "../../../../components/admin/content";
-
 import {
   Card,
   CardContent,
@@ -20,9 +18,9 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-
 import { mockSalesData } from "@/lib/data/mock-data";
 import { stats } from "@/constant/stats";
+import { SalesChart, StatsCard } from "../content";
 
 export default function Analytics() {
   return (
