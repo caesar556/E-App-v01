@@ -7,12 +7,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <section className="bg-black/90 text-white">
+    <main className="bg-black/90 text-white">
       <AuthClient>
         <NavBar />
         <div className="pt-20">{children}</div>
         <Footer />
       </AuthClient>
-    </section>
+    </main>
   );
 }
