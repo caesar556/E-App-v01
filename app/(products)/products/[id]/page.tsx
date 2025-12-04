@@ -2,11 +2,13 @@ import AddToCart from "@/components/common/AddToCart";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 
-export default async function ProductDetailsPage({
-  params,
-}: {
-  params: { id: string };
-}) {
+type ProductPageProps = {
+  params: {
+    id: string;
+  };
+};
+
+export default async function ProductDetailsPage({ params }: ProductPageProps) {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const { id } = params;
 
