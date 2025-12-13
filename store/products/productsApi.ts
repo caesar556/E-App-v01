@@ -3,7 +3,7 @@ import { apiSlice } from "../apiSlice";
 export const productsApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getAllProducts: builder.query({
-      query: ({ range, sort, page = 1, limit = 10 }) => {
+      query: ({ range, sort, page = 1, limit = 1 }) => {
         const params = new URLSearchParams();
         const sortMap = {
           newest: "-createdAt",

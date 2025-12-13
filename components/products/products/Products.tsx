@@ -11,6 +11,9 @@ export default function Products() {
   const {
     filters,
     handleFilterChange,
+    handlePageChange,
+    totalPages,
+    currentPage,
     data,
     isError,
     isFetching,
@@ -19,8 +22,11 @@ export default function Products() {
   } = useProductsLogic();
 
   const products = data?.data || [];
+  console.log("total pages", totalPages);
+  console.log("current page", currentPage);
+  
   return (
-    <div className="pt-24 mb-16 min-h-dvh ">
+    <div className="pt-24 mb-16 min-h-dvh">
       <div className="container mx-auto px-4">
         <div className="flex flex-col lg:flex-row gap-8">
           <div className="w-full lg:w-[30%] flex-shrink-0">
@@ -75,7 +81,11 @@ export default function Products() {
                       ))}
                     </div>
                     <div>
-                      <PaginationApp />
+                      <PaginationApp
+                        page={currentPage}
+                        totalPages={totalPages}
+                        onPageChange={handlePageChange}
+                      />
                     </div>
                   </>
                 ) : (

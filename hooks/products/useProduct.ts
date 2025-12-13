@@ -23,6 +23,14 @@ export function useProductsLogic() {
     range: debouncedRange,
   });
 
+  const { data } = query;
+
+  const totalPages = data?.pagination?.totalPages || data?.totalPages || 1;
+
+  const currentPage = data?.pagination?.page || filters.page;
+
+  const totalProducts = data?.pagination?.totalProducts || data?.results || 0;
+
   const handleFilterChange = (key: keyof Filters, value: any) => {
     setFilters((prev) => ({
       ...prev,
@@ -37,6 +45,9 @@ export function useProductsLogic() {
 
   return {
     filters,
+    totalPages,
+    currentPage,
+    totalProducts,
     handleFilterChange,
     handlePageChange,
     ...query,
