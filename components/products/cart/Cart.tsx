@@ -6,10 +6,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ShoppingCart, Trash2, PlusIcon, MinusIcon } from "lucide-react";
 import { useCartLogic } from "@/hooks/products/useCart";
+import Checkout from "@/components/common/Checkout";
 
 export default function Cart() {
   const { cart, totalPrice, handleQtyChange, handleRemove } = useCartLogic();
-  
+  console.log("cart", cart);
+
   return (
     <section className="mx-auto max-w-6xl min-h-screen px-4 py-8 sm:px-6 sm:py-12 lg:px-8 text-gray-100">
       <div className="mx-auto max-w-3xl">
@@ -110,9 +112,7 @@ export default function Cart() {
               </dl>
 
               <div className="flex justify-center">
-                <Button className="bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-2 rounded-md">
-                  checkout
-                </Button>
+                <Checkout cartItems={cart} />
               </div>
             </CardContent>
           </Card>
